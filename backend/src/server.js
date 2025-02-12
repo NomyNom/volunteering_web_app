@@ -6,9 +6,9 @@ const cors = require('cors');
 
 dotenv.config();
 
-const authRoutes = require('.src/components/Routes/Auth');
-const profileRoutes = require('./components/src/Routes/Profile');
-const eventRoutes = require('.src/components/Routes/Event');
+const authRoutes = require('./components/Routes/Auth');
+const profileRoutes = require('./components/Routes/Profile');
+const eventRoutes = require('./components/Routes/Event');
 
 const app = express();
 
