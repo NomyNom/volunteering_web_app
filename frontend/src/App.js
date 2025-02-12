@@ -1,6 +1,7 @@
 // frontend/src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import HomePage from './components/Home/HomePage';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import ProfileForm from './components/Profile/ProfileForm';
@@ -10,11 +11,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<ProfileForm />} />
         <Route path="/admin/event" element={<EventForm />} />
+        {/* Redirect any unknown route to Home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

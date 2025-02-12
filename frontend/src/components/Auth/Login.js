@@ -33,6 +33,10 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-card">
+        {/* Back button to Home */}
+        <div className="back-button-container">
+          <Link to="/" className="back-button">Back to Home</Link>
+        </div>
         <h2>Login</h2>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleLogin}>

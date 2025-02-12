@@ -31,6 +31,10 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-card">
+        {/* Back button to Home */}
+        <div className="back-button-container">
+          <Link to="/" className="back-button">Back to Home</Link>
+        </div>
         <h2>Register</h2>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleRegister}>
