@@ -6,6 +6,9 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import ProfileForm from './components/Profile/ProfileForm';
 import EventForm from './components/Admin/EventForm';
+import VolunteerMatching from './components/Admin/VolunteerMatching';
+import VolunteerHistory from './components/Admin/VolunteerHistory';
+import NotificationList from './components/Notifications/NotificationList';
 
 function App() {
   return (
@@ -16,7 +19,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<ProfileForm />} />
         <Route path="/admin/event" element={<EventForm />} />
-        {/* Redirect any unknown route to Home */}
+        <Route path="/admin/matching" element={<VolunteerMatching />} />
+        <Route path="/admin/history" element={<VolunteerHistory />} />
+        <Route path="/notifications" element={<NotificationList />} />
+        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
