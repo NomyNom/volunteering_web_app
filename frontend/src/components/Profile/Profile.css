@@ -1,0 +1,68 @@
+/* Navigation styling */
+
+body {
+    background: linear-gradient(90deg, #28a745, #20c3c9);
+  }
+  
+.navContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navContainer a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #333;
+}
+
+/* form container styling */
+.formContainer {
+    max-width: 500px;
+    margin: 120px auto;      /* centers the form and provides space from the top */
+    padding: 2rem;
+    background: #ffffff;     
+    border-radius: 8px;      
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    color: #333;
+}
+
+/* form layout styling */
+.formContainer form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;             /* spacing between form elements */
+}
+
+/* inputs, selects, textareas */
+.formContainer input[type="text"],
+.formContainer input[type="date"],
+.formContainer select,
+.formContainer textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* submit button */
+.formContainer button {
+    padding: 0.75rem;
+    background: #2575fc;    
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.formContainer button:hover {
+    background: #1a5ec8;
+}
