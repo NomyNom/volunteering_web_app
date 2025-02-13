@@ -1,0 +1,74 @@
+/* Container that covers the full viewport */
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* Option 1: Use a background image (ensure the image exists in your public folder) */
+    /* background: url('/images/hero.jpg') no-repeat center center/cover; */
+  
+    /* Option 2: Use a gradient background */
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+  
+/* Hero card for content with a semi-transparent overlay */
+.home-hero {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 600px;
+    margin: 0 1rem;
+}
+  
+.home-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+  
+.home-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+.home-buttons {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+  
+.home-buttons a {
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    margin: 0 0.5rem;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+  
+/* Primary button style */
+.btn-primary {
+    background-color: #2575fc;
+    color: #fff;
+}
+  
+.btn-primary:hover {
+    background-color: #1a5ec8;
+}
+  
+/* Secondary button style */
+.btn-secondary {
+    background-color: #dd2476;
+    color: #fff;
+}
+  
+.btn-secondary:hover {
+    background-color: #c21d65;
+}
+  
