@@ -8,23 +8,36 @@ const Register = () => {
   const [form, setForm] = useState({ email: '', password: '', role: 'volunteer' });
   const [error, setError] = useState('');
 
-  const handleRegister = async (e) => {
+  // const handleRegister = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001'}/api/auth/register`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(form),
+  //     });
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       navigate('/login');
+  //     } else {
+  //       setError(data.msg || 'Registration failed');
+  //     }
+  //   } catch (err) {
+  //     console.error('Registration error:', err);
+  //     setError('An error occurred during registration');
+  //   }
+  // };
+
+  const handleRegister = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001'}/api/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        navigate('/login');
-      } else {
-        setError(data.msg || 'Registration failed');
-      }
-    } catch (err) {
-      console.error('Registration error:', err);
-      setError('An error occurred during registration');
+
+    // Dummy registration logic: assume registration is always successful
+    if (form.email && form.password) {
+      // Optionally, you could simulate saving the registration data somewhere
+      // For now, simply navigate to the login page
+      navigate('/login');
+    } else {
+      setError("Please fill in all required fields.");
     }
   };
 
