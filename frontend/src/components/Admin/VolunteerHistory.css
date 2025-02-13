@@ -1,0 +1,157 @@
+/* 1. (Optional) Import a modern Google Font in your main index.html or via @import: */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'); */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  /* If you imported a custom font, make sure to set it here: */
+  /* font-family: 'Inter', sans-serif; */
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Container with a subtle gradient background */
+.history-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to the top so the card can grow downward */
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #ececec 100%);
+}
+
+/* Card styling with a smooth fade-in animation */
+.history-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 1200px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Back button container */
+.back-button-container {
+  margin-bottom: 1.5rem;
+}
+
+/* Modernized back button with hover effects */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #1967d2;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid #1967d2;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #1967d2;
+  color: #fff;
+}
+
+/* Heading style */
+.history-card h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Table container to handle overflow on smaller screens */
+.history-table-container {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+}
+
+/* Table styling with separated header and body */
+.history-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Table header with a distinct background color */
+.history-table thead {
+  background-color: #1967d2;
+  color: #fff;
+}
+
+.history-table th {
+  padding: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.history-table td {
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Subtle hover effect on table rows in tbody */
+.history-table tbody tr:hover {
+  background-color: #f1f5fe;
+}
+
+/* Status badges with pill shapes */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Different colors for each status */
+.status-badge.completed {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.status-badge.registered {
+  background-color: #e8f0fe;
+  color: #1967d2;
+}
+
+/* Error message styling */
+.error-message {
+  color: #dc3545;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: #f8d7da;
+  border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .history-card {
+    padding: 1.5rem;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 10px;
+  }
+}
