@@ -1,0 +1,87 @@
+/* src/components/Auth/Register.css */
+.register-container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+}
+  
+.register-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 400px;
+}
+  
+.register-card h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+  
+.form-group {
+    margin-bottom: 1rem;
+}
+  
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+  
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+  
+.btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #dd2476;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+  
+.btn-primary:hover {
+    background-color: #c21d65;
+}
+  
+.error-message {
+    background-color: #f8d7da;
+    color: #842029;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.back-button-container {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+  
+/* Style for the back button */
+.back-button {
+    text-decoration: none;
+    color: #2575fc;  /* Use a color that fits your theme */
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #2575fc;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+  
+.back-button:hover {
+    background-color: #2575fc;
+    color: #fff;
+}
