@@ -1,26 +1,25 @@
-/* 1. (Optional) Import a modern Google Font in your main index.html or via @import: */
+/* Example Google Font import (optional): */
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'); */
 
 body, html {
   margin: 0;
   padding: 0;
-  /* If you imported a custom font, make sure to set it here: */
+  /* If you imported a custom font, set it here: */
   /* font-family: 'Inter', sans-serif; */
   background-color: #f5f5f5;
   color: #333;
 }
 
-/* Container with a subtle gradient background */
 .history-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align to the top so the card can grow downward */
+  align-items: flex-start;
   min-height: 100vh;
   padding: 20px;
-  background: linear-gradient(135deg, #f5f5f5 0%, #ececec 100%);
+  /* Match the homepage gradient (purple → pink). Adjust as needed: */
+  background: linear-gradient(135deg, #6d49f2 0%, #f238a0 100%);
 }
 
-/* Card styling with a smooth fade-in animation */
 .history-card {
   background: #fff;
   padding: 2rem;
@@ -29,6 +28,7 @@ body, html {
   width: 100%;
   max-width: 1200px;
   animation: fadeIn 0.3s ease-in-out;
+  margin-top: 2rem;
 }
 
 @keyframes fadeIn {
@@ -42,46 +42,42 @@ body, html {
   }
 }
 
-/* Back button container */
 .back-button-container {
   margin-bottom: 1.5rem;
 }
 
-/* Modernized back button with hover effects */
 .back-button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #1967d2;
+  color: #f238a0;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 8px 16px;
-  border: 1px solid #1967d2;
-  border-radius: 4px;
+  border: 2px solid #f238a0;
+  border-radius: 6px;
   background-color: #fff;
   transition: background-color 0.2s, color 0.2s;
 }
 
 .back-button:hover {
-  background-color: #1967d2;
+  background-color: #f238a0;
   color: #fff;
 }
 
-/* Heading style */
 .history-card h2 {
   margin-top: 0;
   margin-bottom: 1rem;
   font-weight: 600;
+  color: #6d49f2; /* Accent color for heading */
 }
 
-/* Table container to handle overflow on smaller screens */
 .history-table-container {
   margin-top: 1.5rem;
   overflow-x: auto;
 }
 
-/* Table styling with separated header and body */
 .history-table {
   width: 100%;
   border-collapse: separate;
@@ -91,9 +87,9 @@ body, html {
   overflow: hidden;
 }
 
-/* Table header with a distinct background color */
+/* Vibrant table header to match the gradient color scheme */
 .history-table thead {
-  background-color: #1967d2;
+  background-color: #6d49f2;
   color: #fff;
 }
 
@@ -106,15 +102,15 @@ body, html {
 
 .history-table td {
   padding: 16px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
 }
 
-/* Subtle hover effect on table rows in tbody */
 .history-table tbody tr:hover {
-  background-color: #f1f5fe;
+  background-color: #f9f0ff; /* Light purple hover */
 }
 
-/* Status badges with pill shapes */
+/* Status badges */
 .status-badge {
   display: inline-block;
   padding: 6px 12px;
@@ -124,7 +120,6 @@ body, html {
   text-transform: uppercase;
 }
 
-/* Different colors for each status */
 .status-badge.completed {
   background-color: #e6f4ea;
   color: #137333;
@@ -135,7 +130,16 @@ body, html {
   color: #1967d2;
 }
 
-/* Error message styling */
+.status-badge.cancelled {
+  background-color: #ffe8e8;
+  color: #d93025;
+}
+
+.status-badge.waitlist {
+  background-color: #fff8e1;
+  color: #ff8c00;
+}
+
 .error-message {
   color: #dc3545;
   margin-bottom: 1rem;
