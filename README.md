@@ -1,1 +1,0 @@
-# Volunteering Web App - VolunGO
