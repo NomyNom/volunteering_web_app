@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 import "./Profile.css";
 
 function Profile() {
@@ -32,7 +33,14 @@ function Profile() {
     };
 
     return (
-        <div className="formContainer">
+        <div className="profile-container">
+
+        {/* Header with Home button */}
+            <header className="profile-header">
+                <Link to="/" className="home-button">Home</Link>
+            </header>
+
+
             <h2>User Profile</h2>
             <form onSubmit={handleSubmit}>
 

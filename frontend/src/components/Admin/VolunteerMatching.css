@@ -1,0 +1,92 @@
+/* VolunteerMatching.css */
+
+/* Container card style */
+.volunteer-matching-container {
+    background: #fff;
+    padding: 2.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  /* Back button container */
+  .back-button-container {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  /* Back button styling */
+  .back-button {
+    text-decoration: none;
+    color: #2575fc;
+    font-weight: bold;
+    border: 1px solid #2575fc;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #2575fc;
+    color: #fff;
+  }
+  
+  /* Heading styling */
+  .volunteer-matching-container h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  /* Table styling */
+  .volunteer-matching-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .volunteer-matching-table th,
+  .volunteer-matching-table td {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    text-align: left;
+  }
+  
+  .volunteer-matching-table th {
+    background-color: #2575fc;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    font-size: 1rem;
+  }
+  
+  .volunteer-matching-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .volunteer-matching-table tr:hover {
+    background-color: #f0f8ff;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .volunteer-matching-container {
+      padding: 1rem;
+    }
+    .volunteer-matching-table th,
+    .volunteer-matching-table td {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+  }
+  
