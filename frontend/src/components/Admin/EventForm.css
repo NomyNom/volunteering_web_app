@@ -1,6 +1,6 @@
 /* src/components/EventForm.css */
 
-/* Container: center everything, but remove 100vh so it doesn't stretch too tall */
+
 .event-form-container {
     display: flex;
     align-items: center;
@@ -9,7 +9,7 @@
     padding: 2rem; 
   }
   
-  /* Card with reduced vertical padding if you like */
+  
   .event-form-card {
     background: #ffffff;
     padding: 1.5rem; 
@@ -40,7 +40,7 @@
   .form-group label {
     display: block;
     font-size: 0.9rem;
-    margin-bottom: 0.25rem; /* Reduce margin to shrink vertical space */
+    margin-bottom: 0.25rem; 
   }
   
   .form-group input,
@@ -63,7 +63,7 @@
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
-    margin-top: 0.75rem; /* Slight margin above the button */
+    margin-top: 0.75rem; 
   }
   
   .btn-primary:hover {
