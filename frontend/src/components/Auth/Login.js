@@ -8,25 +8,42 @@ const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
-  const handleLogin = async (e) => {
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001'}/api/auth/login`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(credentials),
+  //     });
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       localStorage.setItem('token', data.token);
+  //       localStorage.setItem('user', JSON.stringify(data.user));
+  //       navigate('/profile');
+  //     } else {
+  //       setError(data.msg || 'Login failed');
+  //     }
+  //   } catch (err) {
+  //     console.error('Login error:', err);
+  //     setError('An error occurred during login');
+  //   }
+  // };
+
+  const handleLogin = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001'}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        navigate('/profile');
-      } else {
-        setError(data.msg || 'Login failed');
-      }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError('An error occurred during login');
+
+    // Dummy login logic: In a real app, you'd send an API request.
+    // For now, we assume the login is always successful.
+    if (credentials.email && credentials.password) {
+      // Simulate saving a token and user data in localStorage
+      localStorage.setItem('token', 'dummy-token');
+      localStorage.setItem('user', JSON.stringify({ email: credentials.email, role: 'volunteer' }));
+      
+      // Navigate to the profile page
+      navigate('/profile');
+    } else {
+      setError("Please fill in all fields.");
     }
   };
 
