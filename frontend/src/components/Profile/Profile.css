@@ -1,5 +1,3 @@
-/* Navigation styling */
-
 body {
     background: linear-gradient(90deg, #28a745, #20c3c9);
   }
@@ -66,3 +64,68 @@ body {
 .formContainer button:hover {
     background: #1a5ec8;
 }
+
+/* Header styling with Home button */
+.profile-header {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+.home-button {
+    text-decoration: none;
+    color: #2575fc;
+    font-weight: bold;
+    border: 1px solid #2575fc;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Card container for the profile form */
+.profile-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #fff; /* White card */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.home-button:hover {
+    background-color: #2575fc;
+    color: #fff;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  width: 97%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #2575fc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #1a5ec8;
+}
+
+  
