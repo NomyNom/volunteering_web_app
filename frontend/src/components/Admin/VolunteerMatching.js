@@ -48,14 +48,13 @@ const VolunteerMatching = () => {
     }, []);
 
     return (
+      <div className="volunteer-matching-page">
         <div className="volunteer-matching-container">
-          {/* Back Button */}
           <div className="back-button-container">
             <Link to="/" className="back-button">Back to Home</Link>
           </div>
-          
           <h2>Volunteer Matching</h2>
-          {error && <div className="error-message">{error}</div>}
+          {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
           {matches.length === 0 ? (
             <p>No matching data available.</p>
           ) : (
@@ -77,41 +76,9 @@ const VolunteerMatching = () => {
             </table>
           )}
         </div>
-      );
-    };
+      </div>
+    );
+  };
     
     
-    export default VolunteerMatching;
-
-
-
-
-//   return (
-//     <div style={{ padding: '1rem' }}>
-//       <h2>Volunteer Matching</h2>
-//       {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
-//       {matches.length === 0 ? (
-//         <p>No matching data available.</p>
-//       ) : (
-//         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-//           <thead>
-//             <tr>
-//               <th style={{ border: '1px solid #ccc', padding: '8px' }}>Volunteer Name</th>
-//               <th style={{ border: '1px solid #ccc', padding: '8px' }}>Matched Event</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {matches.map((match, index) => (
-//               <tr key={index}>
-//                 <td style={{ border: '1px solid #ccc', padding: '8px' }}>{match.volunteerName}</td>
-//                 <td style={{ border: '1px solid #ccc', padding: '8px' }}>{match.matchedEvent}</td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default VolunteerMatching;
+  export default VolunteerMatching;

@@ -1,92 +1,96 @@
-/* VolunteerMatching.css */
+/* Overall page background container */
+.volunteer-matching-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Change the color/gradient as desired */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
 
-/* Container card style */
+/* Card container for volunteer matching content */
 .volunteer-matching-container {
-    background: #fff;
-    padding: 2.5rem;
-    margin: 2rem auto;
-    max-width: 800px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #fff;
+  padding: 2.5rem;
+  max-width: 800px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333; /* Text color for content */
+}
+
+/* Container for the back button */
+.back-button-container {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+/* Back button styling */
+.back-button {
+  text-decoration: none;
+  color: #2575fc;
+  font-weight: bold;
+  border: 1px solid #2575fc;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #2575fc;
+  color: #fff;
+}
+
+/* Heading styling */
+.volunteer-matching-container h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Table styling */
+.volunteer-matching-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.volunteer-matching-table th,
+.volunteer-matching-table td {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  text-align: left;
+}
+
+.volunteer-matching-table th {
+  background-color: #2575fc;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-size: 1rem;
+}
+
+.volunteer-matching-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.volunteer-matching-table tr:hover {
+  background-color: #f0f8ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .volunteer-matching-page {
+    padding: 1rem;
   }
-  
-  /* Back button container */
-  .back-button-container {
-    margin-bottom: 1rem;
-    text-align: left;
+  .volunteer-matching-container {
+    padding: 1.5rem;
+    margin: 1rem;
   }
-  
-  /* Back button styling */
-  .back-button {
-    text-decoration: none;
-    color: #2575fc;
-    font-weight: bold;
-    border: 1px solid #2575fc;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .back-button:hover {
-    background-color: #2575fc;
-    color: #fff;
-  }
-  
-  /* Heading styling */
-  .volunteer-matching-container h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: #333;
-  }
-  
-  /* Table styling */
-  .volunteer-matching-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-  }
-  
   .volunteer-matching-table th,
   .volunteer-matching-table td {
-    border: 1px solid #ddd;
-    padding: 1rem;
-    text-align: left;
+    padding: 0.75rem;
+    font-size: 0.9rem;
   }
-  
-  .volunteer-matching-table th {
-    background-color: #2575fc;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    font-size: 1rem;
-  }
-  
-  .volunteer-matching-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .volunteer-matching-table tr:hover {
-    background-color: #f0f8ff;
-  }
-  
-  /* Error message styling */
-  .error-message {
-    color: red;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 600px) {
-    .volunteer-matching-container {
-      padding: 1rem;
-    }
-    .volunteer-matching-table th,
-    .volunteer-matching-table td {
-      padding: 0.75rem;
-      font-size: 0.9rem;
-    }
-  }
-  
+}
