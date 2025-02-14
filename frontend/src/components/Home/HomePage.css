@@ -1,74 +1,101 @@
-/* Container that covers the full viewport */
+/* HomePage.css */
+
+/* Full-page container with a gradient background */
 .home-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    /* Option 1: Use a background image (ensure the image exists in your public folder) */
-    /* background: url('/images/hero.jpg') no-repeat center center/cover; */
-  
-    /* Option 2: Use a gradient background */
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    min-height: 100vh;
     background: linear-gradient(135deg, #6a11cb, #2575fc);
-}
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff;
+  }
   
-/* Hero card for content with a semi-transparent overlay */
-.home-hero {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 2.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 600px;
-    margin: 0 1rem;
-}
+    /* Header area for auth buttons */
+    .home-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      flex-grow: 1; /* Allow it to take available space */
+    }
   
-.home-hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #333;
-}
+    
+    
+    /* Auth buttons styling */
+    .auth-buttons a,
+    .auth-buttons button {
+      margin-left: 1rem;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      border: none;
+      cursor: pointer;
   
-.home-hero p {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    color: #555;
-}
-
-.home-buttons {
+    }
+    
+    .btn-primary {
+      background-color: #2575fc;
+      color: #fff;
+    }
+    
+    .btn-primary:hover {
+      background-color: #1a5ec8;
+    }
+    
+    .btn-secondary {
+      background-color: #dd2476;
+      color: #fff;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #c21d65;
+    }
+    
+/* Main content area for navigation buttons */
+.home-main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    justify-self: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-  
-.home-buttons a {
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 20px;
-    font-size: 1rem;
-    margin: 0 0.5rem;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-}
-  
-/* Primary button style */
-.btn-primary {
-    background-color: #2575fc;
-    color: #fff;
-}
-  
-.btn-primary:hover {
-    background-color: #1a5ec8;
-}
-  
-/* Secondary button style */
-.btn-secondary {
-    background-color: #dd2476;
-    color: #fff;
-}
-  
-.btn-secondary:hover {
-    background-color: #c21d65;
-}
-  
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center vertically within .home-main */
+    align-items: center; /* Center horizontally */
+    width: 100%;
+    text-align: center;
+    gap: 1rem; /* Adds spacing between elements */
+  }
+    
+    /* Navigation buttons for accessing other pages */
+    .navigation-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    
+    .nav-button {
+      text-decoration: none;
+      background-color: #fff;
+      color: #2575fc;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    
+    .nav-button:hover {
+      transform: scale(1.05);
+      background-color: #f0f0f0;
+    }
+    
+    /* Message shown when user is not logged in */
+  .access-message {
+      font-size: 1.2rem;
+      margin-bottom: 2rem; /* Adds space below the message */
+  }
