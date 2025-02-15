@@ -1,34 +1,58 @@
-/* Example Google Font import (optional): */
+/* Example Google Font (optional): */
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'); */
 
 body, html {
   margin: 0;
   padding: 0;
-  /* If you imported a custom font, set it here: */
-  /* font-family: 'Inter', sans-serif; */
   background-color: #f5f5f5;
   color: #333;
 }
 
 .history-container {
+  position: relative; /* So the button can be positioned absolutely within this container */
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
   min-height: 100vh;
-  padding: 20px;
-  /* Match the homepage gradient (purple → pink). Adjust as needed: */
-  background: linear-gradient(135deg, #6d49f2 0%, #f238a0 100%);
+  padding: 10px;
+  background: radial-gradient(circle at top left, #6d49f2, #f238a0);
 }
 
+/* ----------------------------- */
+/* New Top Header for the Page   */
+/* ----------------------------- */
+.page-header {
+  margin-top: -20px; /* adjust as needed to pull header up/down */
+  margin-bottom: 40px;
+  text-align: center;
+  color: #fff;
+}
+
+.page-title {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  /* Use a solid white color for better contrast */
+  color: #fff;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  /* Use a solid white color for clarity */
+  color: #fff;
+}
+
+/* ----------------------------- */
+/* White Card (History Section)  */
+/* ----------------------------- */
 .history-card {
   background: #fff;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  max-width: 1200px;
+  width: 95%;
   animation: fadeIn 0.3s ease-in-out;
-  margin-top: 2rem;
 }
 
 @keyframes fadeIn {
@@ -43,41 +67,40 @@ body, html {
 }
 
 .back-button-container {
-  margin-bottom: 1.5rem;
+  position: absolute;
+  top: 20px;    /* Adjust as desired */
+  left: 20px;   /* Adjust as desired */
+  margin-bottom: 0;
 }
 
 .back-button {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: #f238a0;
+  gap: 8px;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 8px 16px;
-  border: 2px solid #f238a0;
+  border: 2px solid #ff4444; /* red border */
   border-radius: 6px;
-  background-color: #fff;
+  background-color: #ff4444; /* solid red background */
+  color: #fff;              /* white text */
   transition: background-color 0.2s, color 0.2s;
 }
 
 .back-button:hover {
-  background-color: #f238a0;
+  background-color: #cc0000; /* darker red on hover */
+  border-color: #cc0000;
   color: #fff;
 }
 
-.history-card h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  color: #6d49f2; /* Accent color for heading */
-}
-
 .history-table-container {
-  margin-top: 1.5rem;
   overflow-x: auto;
 }
 
+/* ----------------------------- */
+/* Table Layout                  */
+/* ----------------------------- */
 .history-table {
   width: 100%;
   border-collapse: separate;
@@ -87,9 +110,8 @@ body, html {
   overflow: hidden;
 }
 
-/* Vibrant table header to match the gradient color scheme */
 .history-table thead {
-  background-color: #6d49f2;
+  background: linear-gradient(90deg, #6d49f2, #f238a0);
   color: #fff;
 }
 
@@ -107,10 +129,12 @@ body, html {
 }
 
 .history-table tbody tr:hover {
-  background-color: #f9f0ff; /* Light purple hover */
+  background-color: #f8e6ff; /* Light pastel purple hover */
 }
 
-/* Status badges */
+/* ----------------------------- */
+/* Status Badges                 */
+/* ----------------------------- */
 .status-badge {
   display: inline-block;
   padding: 6px 12px;
@@ -148,7 +172,9 @@ body, html {
   border-radius: 4px;
 }
 
-/* Responsive adjustments */
+/* ----------------------------- */
+/* Responsive Adjustments        */
+/* ----------------------------- */
 @media (max-width: 768px) {
   .history-card {
     padding: 1.5rem;
@@ -159,3 +185,131 @@ body, html {
     padding: 10px;
   }
 }
+
+/* ----------------------------- */
+/* Notifications Dropdown CSS    */
+/* ----------------------------- */
+.notification-list-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.bell-icon {
+  width: 28px;
+  height: 28px;
+  color: #FFD700; /* gold yellow */
+}
+
+.notification-bell {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.notification-bell:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ff4444;
+  color: white;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.dropdown {
+  position: absolute;
+  top: 90%;
+  right: 0;
+  width: 350px; /* Keep the dropdown width */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+  border-bottom: 1px solid gray;
+}
+
+.dropdown-header h3 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0px;
+}
+
+.mark-read {
+  background: none;
+  border: none;
+  color: #2196F3;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.mark-read:hover {
+  text-decoration: underline;
+}
+
+.notification-items {
+  max-height: 138px; /* Adjust for shorter/longer dropdown */
+  overflow-y: auto;
+}
+
+.notification-item {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.notification-item.unread {
+  background-color: #f8f9fa;
+}
+
+.unread-indicator {
+  position: absolute;
+  left: 1px;
+  top: 38%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #2196F3;
+  border-radius: 50%;
+}
+
+.notification-message {
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.notification-date {
+  font-size: 11px;
+  color: #666;
+}
+
+
+
+

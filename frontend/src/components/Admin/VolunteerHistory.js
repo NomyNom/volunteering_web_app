@@ -1,9 +1,124 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './VolunteerHistory.css';
 
+function Notifications() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      message: "New volunteer opportunity: Community Cleanup",
+      date: "2024-03-10",
+      read: false
+    },
+    {
+      id: 2,
+      message: "Your registration for Food Drive was confirmed",
+      date: "2024-03-09",
+      read: true
+    },
+    {
+      id: 3,
+      message: "Reminder: Beach Cleanup starts tomorrow",
+      date: "2024-03-08",
+      read: false
+    },
+    {
+      id: 4,
+      message: "New event: School Supply Drive",
+      date: "2024-03-07",
+      read: false
+    },
+    {
+      id: 5,
+      message: "Your registration for Toy Drive was confirmed",
+      date: "2024-03-06",
+      read: true
+    },
+    {
+      id: 6,
+      message: "Volunteer hours updated for Community Cleanup",
+      date: "2024-03-05",
+      read: false
+    },
+    {
+      id: 7,
+      message: "Thank you for volunteering at Food Drive!",
+      date: "2024-03-04",
+      read: true
+    },
+    {
+      id: 8,
+      message: "Upcoming: Park Restoration Project",
+      date: "2024-03-03",
+      read: false
+    }
+  ]);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map(n => ({ ...n, read: true })));
+  };
+
+  return (
+    <div className="notification-list-container">
+      <button className="notification-bell" onClick={toggleDropdown}>
+        {/* Yellow bell icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          className="bell-icon"
+        >
+          <path
+            fillRule="evenodd"
+            d="M10 2a6 6 0 00-6 6v2.586l-.293.293A1 1 0 004
+               12h12a1 1 0 00.707-1.707L16 10.586V8a6 6 0
+               00-6-6zM9 18a3 3 0 006 0H9z"
+            clipRule="evenodd"
+          />
+        </svg>
+        {notifications.some(n => !n.read) && (
+          <span className="notification-badge">
+            {notifications.filter(n => !n.read).length}
+          </span>
+        )}
+      </button>
+
+      {isOpen && (
+        <div className="dropdown">
+          <div className="dropdown-header">
+            <h3>Notifications</h3>
+            <button onClick={markAllAsRead} className="mark-read">
+              Mark all as read
+            </button>
+          </div>
+          <div className="notification-items">
+            {notifications.map(notification => (
+              <div
+                key={notification.id}
+                className={`notification-item ${notification.read ? '' : 'unread'}`}
+              >
+                <div className="notification-message">{notification.message}</div>
+                <div className="notification-date">
+                  {new Date(notification.date).toLocaleDateString()}
+                </div>
+                {!notification.read && <div className="unread-indicator" />}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
 const VolunteerHistory = () => {
-  // Extended dummy data for a more detailed table
   const mockVolunteerHistory = [
     {
       id: 1,
@@ -69,14 +184,24 @@ const VolunteerHistory = () => {
 
   return (
     <div className="history-container">
+      <Notifications />
+
+      {/* New page header outside of the card */}
+      <div className="page-header">
+        <h1 className="page-title">Volunteer Participation History</h1>
+        <p className="page-subtitle">
+          Track your volunteer activities, event details, and statuses.
+        </p>
+      </div>
+
       <div className="history-card">
-        {/* Back button to Admin Dashboard */}
         <div className="back-button-container">
-          <Link to="/admin" className="back-button">Back to Admin Dashboard</Link>
+          <Link to="/admin" className="back-button">
+            Back to Admin Dashboard
+          </Link>
         </div>
-        
-        <h2>Volunteer Participation History</h2>
-        
+
+        {/* Table of volunteer history */}
         <div className="history-table-container">
           <table className="history-table">
             <thead>
@@ -100,7 +225,9 @@ const VolunteerHistory = () => {
                   <td>{record.urgency}</td>
                   <td>{new Date(record.eventDate).toLocaleDateString()}</td>
                   <td>
-                    <span className={`status-badge ${record.participationStatus.toLowerCase()}`}>
+                    <span
+                      className={`status-badge ${record.participationStatus.toLowerCase()}`}
+                    >
                       {record.participationStatus}
                     </span>
                   </td>
@@ -115,4 +242,12 @@ const VolunteerHistory = () => {
 };
 
 export default VolunteerHistory;
+
+
+
+
+
+
+
+
 
