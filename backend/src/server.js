@@ -1,6 +1,6 @@
 // backend/server.js
 const express = require('express');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 // const cors = require('cors');
 
@@ -11,6 +11,7 @@ const profileRoutes = require('./components/Routes/Profile');
 const eventRoutes = require('./components/Routes/Event');
 
 const app = express();
+const PORT = process.env.PORT;
 
 // Middleware:
 // a concept where functions can be used to process incoming requests before they reach 
@@ -19,10 +20,15 @@ app.use(express.json());
 // app.use(cors());
 
 // // Connect to MongoDB
-// mongoose
-//   .connect(process.env.MONGO_URI)
-//   .then(() => console.log('MongoDB connected'))
-//   .catch(err => console.error('MongoDB connection error:', err));
+mongoose
+  .connect(process.env.MONGO_URI)
+  // .then(() => console.log('MongoDB connected'))
+  .then ( () => {
+    app.listen(PORT, () => {
+      console.log('Connected to MongoDB & Server running on port', PORT, '!')
+    })
+  })
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // Mount routes
 app.use('/api/auth', authRoutes);
@@ -34,7 +40,6 @@ app.use('/api/events', eventRoutes);
 //   res.json({mssg: 'Welcome to the app'})
 // })
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log('Server running on port', PORT)
-})
+// app.listen(PORT, () => {
+//   console.log('Server running on port', PORT)
+// })
