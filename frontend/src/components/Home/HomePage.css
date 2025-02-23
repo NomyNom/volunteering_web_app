@@ -1,93 +1,177 @@
-/* HomePage.css */
-
 /* Full-page container with a gradient background */
 .home-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #fff;
-  }
-  
-  /* Header area for auth buttons */
-  .home-header {
-    width: 99%;
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem;
-    padding-left: 0rem;
-  }
-  
-  /* Auth buttons styling */
-  .auth-buttons a,
-  .auth-buttons button {
-    margin-left: 1rem;
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 20px;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .btn-primary {
-    background-color: #2575fc;
-    color: #fff;
-  }
-  
-  .btn-primary:hover {
-    background-color: #1a5ec8;
-  }
-  
-  .btn-secondary {
-    background-color: #dd2476;
-    color: #fff;
-  }
-  
-  .btn-secondary:hover {
-    background-color: #c21d65;
-  }
-  
-  /* Main content area for navigation buttons */
-  .home-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  /* Navigation buttons for accessing other pages */
-  .navigation-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  
-  .nav-button {
-    text-decoration: none;
-    background-color: #fff;
-    color: #2575fc;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, background-color 0.2s ease;
-  }
-  
-  .nav-button:hover {
-    transform: scale(1.05);
-    background-color: #f0f0f0;
-  }
-  
-  /* Message shown when user is not logged in */
-  .access-message {
-    font-size: 1.2rem;
-    margin-top: 2rem;
-  }
-  
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #fff;
+}
+
+/* SIDEBAR STYLES */
+.sidebar {
+  width: 60px; /* collapsed width */
+  height: 100vh;
+  background: linear-gradient(160deg, #1a1a2e, #302b63);
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden; /* hides any overflow so text can't peek out */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.open {
+  width: 250px; /* expanded width */
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* Container for nav links */
+.sidebar-links {
+  margin-top: 20px;
+}
+
+/* Grouping volunteer/admin sections */
+.nav-group {
+  margin-bottom: 1rem;
+}
+
+/* Section title styling */
+.nav-group-title {
+  display: block;
+  margin: 0.5rem 1.25rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #bbb;
+}
+
+/* Each nav link */
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+/* Hide nav group titles and text when collapsed */
+.sidebar:not(.open) .nav-group-title {
+  display: none;
+}
+.sidebar:not(.open) .nav-text {
+  display: none;
+}
+
+/* Disable clicks and hovers on nav links when sidebar is collapsed */
+.sidebar:not(.open) .sidebar-links {
+  pointer-events: none;
+}
+
+/* Also remove the pink hover effect in collapsed mode */
+.sidebar:not(.open) .nav-item:hover {
+  background: none !important;
+}
+
+.nav-text {
+  margin-left: 10px;
+}
+
+.nav-item:hover {
+  background: #dd2476; /* Pinkish hover color */
+}
+
+/* MAIN CONTENT */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Only shift if the user is logged in and the sidebar is present */
+.with-sidebar {
+  margin-left: 60px; /* default collapsed width */
+}
+
+/* If the sidebar is open, expand margin */
+.sidebar.open + .main-content.with-sidebar {
+  margin-left: 250px; /* expanded width */
+}
+
+/* HEADER (top-right) */
+.home-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+/* Auth buttons (Login/Register/Logout) */
+.auth-buttons a,
+.auth-buttons button {
+  margin-left: 1rem;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #2575fc;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #1a5ec8;
+}
+
+.btn-secondary {
+  background-color: #dd2476;
+  color: #fff;
+}
+.btn-secondary:hover {
+  background-color: #c21d65;
+}
+
+/* CENTER CONTENT */
+.home-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: calc(85vh - 80px);
+}
+
+.welcome-message {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #fff;
+  margin: auto; /* center vertically in the container */
+}
+
+.access-message {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+/* In your global CSS (e.g., index.css or HomePage.css) */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Hides both horizontal and vertical scrollbars */
+}
+
+
+
+
