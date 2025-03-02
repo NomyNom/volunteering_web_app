@@ -38,8 +38,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/notifications', notificationsRoutes);
-app.use('./api/volunteer/history', volunteerHistoryRoutes);
-app.use('./api/volunteer/matching', volunteerMatchingRoutes);
+app.use('/api/volunteer/history', volunteerHistoryRoutes);
+app.use('/api/volunteer/matching', volunteerMatchingRoutes);
 
 // Route
 // app.get('/', (req, res) => {
