@@ -1,22 +1,15 @@
-// Home.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './HomePage.css';
 
-/**
- * This is the Home component, which serves as the landing page of our React App.
- * If a user is logged in (token exists), they'll see navigation links to other pages.
- * Otherwise, they'll see prompts to log in or register.
- */
 const Home = () => {
-  // Retrieve the token from localStorage to check user authentication
   const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
-  /**
-   * Logs the user out by removing auth details from localStorage
-   * and then redirecting to the /login page.
-   */
+  // Collapsible sidebar state
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -25,62 +18,71 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Header area: we only show the Logout button if the user is logged in */}
-      <header className="home-header">
-        {token && (
-          <div className="auth-buttons">
-            <button className="btn-secondary" onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
-        )}
-      </header>
+      {/* Render the sidebar ONLY if the user is logged in (token exists) */}
+      {token && (
+        <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+          <button className="toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
+            ☰
+          </button>
+          <nav className="sidebar-links">
+            {/* Volunteer section */}
+            <div className="nav-group">
+              <span className="nav-group-title">Volunteer Pages</span>
+              <Link to="/profile" className="nav-item">
+                <span className="nav-text">Profile</span>
+              </Link>
+            </div>
 
-      {/* Main content area */}
-      <main className="home-main">
-        {token ? (
-          /**
-           * If the user is logged in, show navigation buttons for different admin/user pages.
-           */
-          <div className="navigation-buttons">
-            <Link to="/profile" className="nav-button">
-              Profile
-            </Link>
-            <Link to="/admin/event" className="nav-button">
-              Event Management
-            </Link>
-            <Link to="/admin/matching" className="nav-button">
-              Volunteer Matching
-            </Link>
-            <Link to="/admin/history" className="nav-button">
-              Volunteer History
-            </Link>
-            <Link to="/notifications" className="nav-button">
-              Notifications
-            </Link>
-          </div>
-        ) : (
-          /**
-           * If the user is NOT logged in, show a message and the login/register buttons
-           * stacked and centered in the page.
-           */
-          <>
+            {/* Admin section */}
+            <div className="nav-group">
+              <span className="nav-group-title">Admin Pages</span>
+              <Link to="/admin/event" className="nav-item">
+                <span className="nav-text">Event Management</span>
+              </Link>
+              <Link to="/admin/matching" className="nav-item">
+                <span className="nav-text">Volunteer Matching</span>
+              </Link>
+              <Link to="/admin/history" className="nav-item">
+                <span className="nav-text">Volunteer History</span>
+              </Link>
+            </div>
+          </nav>
+        </div>
+      )}
+
+      {/* Main Content Area */}
+      {/* Conditionally apply a class if there's a sidebar */}
+      <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
+        <header className="home-header">
+          {token ? (
+            <div className="auth-buttons">
+              <button className="btn-secondary" onClick={handleLogout}>Logout</button>
+            </div>
+          ) : (
+            <div className="auth-buttons">
+              <Link to="/login" className="btn-primary">Login</Link>
+              <Link to="/register" className="btn-secondary">Register</Link>
+            </div>
+          )}
+        </header>
+
+        <main className="home-main">
+          {token ? (
+            <h1 className="welcome-message">
+              Welcome back! Use the sidebar to navigate.
+            </h1>
+          ) : (
             <p className="access-message">
               Please login or register to access the features.
             </p>
-            <div className="auth-buttons">
-              <Link to="/login" className="btn-primary">
-                Login
-              </Link>
-              <Link to="/register" className="btn-secondary">
-                Register
-              </Link>
-            </div>
-          </>
-        )}
-      </main>
+          )}
+        </main>
+      </div>
     </div>
   );
 };
 
 export default Home;
+
+
+

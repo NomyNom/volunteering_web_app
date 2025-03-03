@@ -27,6 +27,6 @@ yarn-error.log*
 frontend/README.md
 
 # ignoring the .env files in front and back end
-*.env
+# *.env
 frontend/*.env
 backend/*.env

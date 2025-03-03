@@ -74,11 +74,11 @@ body {
 
 .home-button {
     text-decoration: none;
-    color: #dd2476;  /* red theme color */
-    font-weight: normal;
-    padding: .5rem 1rem;
-    border: 2px solid #dd2476;
-    border-radius: 6px;
+    color: #2575fc;
+    font-weight: bold;
+    border: 1px solid #2575fc;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -87,13 +87,13 @@ body {
     max-width: 600px;
     margin: 2rem auto;
     padding: 1rem;
-    background: #ffffff; /* White card */
+    background: #fff; /* White card */
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .home-button:hover {
-    background-color: #dd2476;
+    background-color: #2575fc;
     color: #fff;
 }
 
@@ -127,3 +127,5 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #1a5ec8;
 }
+
+  
