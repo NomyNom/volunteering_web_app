@@ -1,15 +1,125 @@
-// backend/src/components/routes/event.js
 const express = require('express');
 const router = express.Router();
 
-// Stub route: POST /api/events
+// In-memory storage for events (replace with MongoDB later)
+let events = [];
+
+// Helper function to validate event data
+const validateEventData = (eventName, eventDescription, location, requiredSkills, urgency, eventDate) => {
+  if (!eventName || !eventDescription || !location || !requiredSkills || !urgency || !eventDate) {
+    return { isValid: false, error: 'All fields are required' };
+  }
+  if (
+    typeof eventName !== 'string' ||
+    typeof eventDescription !== 'string' ||
+    typeof location !== 'string' ||
+    !Array.isArray(requiredSkills) ||
+    typeof urgency !== 'string' ||
+    typeof eventDate !== 'string'
+  ) {
+    return { isValid: false, error: 'Invalid data types' };
+  }
+  return { isValid: true };
+};
+
+// POST /api/events - Create a new event
 router.post('/', (req, res) => {
-    res.json({ msg: 'Event created (stub)' });
-  });
-  
-  // Stub route: GET /api/events
-  router.get('/', (req, res) => {
-    res.json({ events: [] });
-  });
-  
-  module.exports = router;
+  const { eventName, eventDescription, location, requiredSkills, urgency, eventDate } = req.body;
+
+  // Validate event data
+  const validation = validateEventData(eventName, eventDescription, location, requiredSkills, urgency, eventDate);
+  if (!validation.isValid) {
+    return res.status(400).json({ error: validation.error });
+  }
+
+  // Create a new event
+  const newEvent = {
+    id: Math.random().toString(36).substr(2, 9), // Generate a random ID
+    eventName,
+    eventDescription,
+    location,
+    requiredSkills,
+    urgency,
+    eventDate,
+  };
+
+  // Add the event to the in-memory storage
+  events.push(newEvent);
+
+  // Respond with the created event
+  res.status(201).json({ msg: 'Event created', event: newEvent });
+});
+
+// GET /api/events - Get all events
+router.get('/', (req, res) => {
+  // Respond with the list of events
+  res.json({ events });
+});
+
+// GET /api/events/:id - Get a specific event by ID
+router.get('/:id', (req, res) => {
+  const eventId = req.params.id;
+
+  // Find the event by ID
+  const event = events.find((e) => e.id === eventId);
+
+  if (!event) {
+    return res.status(404).json({ error: 'Event not found' });
+  }
+
+  // Respond with the event
+  res.json({ event });
+});
+
+// PUT /api/events/:id - Update a specific event by ID
+router.put('/:id', (req, res) => {
+  const eventId = req.params.id;
+  const { eventName, eventDescription, location, requiredSkills, urgency, eventDate } = req.body;
+
+  // Validate event data
+  const validation = validateEventData(eventName, eventDescription, location, requiredSkills, urgency, eventDate);
+  if (!validation.isValid) {
+    return res.status(400).json({ error: validation.error });
+  }
+
+  // Find the event by ID
+  const eventIndex = events.findIndex((e) => e.id === eventId);
+
+  if (eventIndex === -1) {
+    return res.status(404).json({ error: 'Event not found' });
+  }
+
+  // Update the event
+  events[eventIndex] = {
+    ...events[eventIndex],
+    eventName,
+    eventDescription,
+    location,
+    requiredSkills,
+    urgency,
+    eventDate,
+  };
+
+  // Respond with the updated event
+  res.json({ msg: 'Event updated', event: events[eventIndex] });
+});
+
+// DELETE /api/events/:id - Delete a specific event by ID
+router.delete('/:id', (req, res) => {
+  const eventId = req.params.id;
+
+  // Find the event by ID
+  const eventIndex = events.findIndex((e) => e.id === eventId);
+
+  if (eventIndex === -1) {
+    return res.status(404).json({ error: 'Event not found' });
+  }
+
+  // Remove the event from the in-memory storage
+  events.splice(eventIndex, 1);
+
+  // Respond with a success message
+  res.json({ msg: 'Event deleted' });
+});
+
+module.exports = router;

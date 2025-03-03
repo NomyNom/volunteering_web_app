@@ -1,14 +1,14 @@
 /* src/components/EventForm.css */
 
-
 .event-form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    padding: 2rem; 
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  padding: 2rem;
+  min-height: 100vh; /* Ensure container fills the full screen height */
+}
+
   
   .event-form-card {
     background: #ffffff;
