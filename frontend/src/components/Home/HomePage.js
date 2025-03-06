@@ -1,3 +1,4 @@
+// frontend/src/components/Home/HomePage.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './HomePage.css';
@@ -31,6 +32,10 @@ const Home = () => {
               <Link to="/profile" className="nav-item">
                 <span className="nav-text">Profile</span>
               </Link>
+              {/* New: Notifications link */}
+              <Link to="/notifications" className="nav-item">
+                <span className="nav-text">Notifications</span>
+              </Link>
             </div>
 
             {/* Admin section */}
@@ -51,7 +56,6 @@ const Home = () => {
       )}
 
       {/* Main Content Area */}
-      {/* Conditionally apply a class if there's a sidebar */}
       <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
         <header className="home-header">
           {token ? (
@@ -69,8 +73,8 @@ const Home = () => {
         <main className="home-main">
           {token ? (
             <h1 className="welcome-message">
-              Welcome back! Use the sidebar to navigate.
-            </h1>
+            Welcome back, {user?.name || 'User'}! Use the sidebar to navigate.
+          </h1>          
           ) : (
             <p className="access-message">
               Please login or register to access the features.
@@ -83,6 +87,7 @@ const Home = () => {
 };
 
 export default Home;
+
 
 
 

@@ -9,7 +9,7 @@ body, html {
 }
 
 .history-container {
-  position: relative; /* So the button can be positioned absolutely within this container */
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +23,7 @@ body, html {
 /* New Top Header for the Page   */
 /* ----------------------------- */
 .page-header {
-  margin-top: -20px; /* adjust as needed to pull header up/down */
+  margin-top: -20px;
   margin-bottom: 40px;
   text-align: center;
   color: #fff;
@@ -33,13 +33,11 @@ body, html {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
-  /* Use a solid white color for better contrast */
   color: #fff;
 }
 
 .page-subtitle {
   font-size: 1.2rem;
-  /* Use a solid white color for clarity */
   color: #fff;
 }
 
@@ -68,8 +66,8 @@ body, html {
 
 .back-button-container {
   position: absolute;
-  top: 20px;    /* Adjust as desired */
-  left: 20px;   /* Adjust as desired */
+  top: 20px;
+  left: 20px;
   margin-bottom: 0;
 }
 
@@ -81,15 +79,15 @@ body, html {
   font-size: 0.9rem;
   font-weight: 600;
   padding: 8px 16px;
-  border: 2px solid #ff4444; /* red border */
+  border: 2px solid #ff4444;
   border-radius: 6px;
-  background-color: #ff4444; /* solid red background */
-  color: #fff;              /* white text */
+  background-color: #ff4444;
+  color: #fff;
   transition: background-color 0.2s, color 0.2s;
 }
 
 .back-button:hover {
-  background-color: #cc0000; /* darker red on hover */
+  background-color: #cc0000;
   border-color: #cc0000;
   color: #fff;
 }
@@ -129,7 +127,7 @@ body, html {
 }
 
 .history-table tbody tr:hover {
-  background-color: #f8e6ff; /* Light pastel purple hover */
+  background-color: #f8e6ff;
 }
 
 /* ----------------------------- */
@@ -185,131 +183,3 @@ body, html {
     padding: 10px;
   }
 }
-
-/* ----------------------------- */
-/* Notifications Dropdown CSS    */
-/* ----------------------------- */
-.notification-list-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
-.bell-icon {
-  width: 28px;
-  height: 28px;
-  color: #FFD700; /* gold yellow */
-}
-
-.notification-bell {
-  position: relative;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  transition: background-color 0.2s, transform 0.2s;
-}
-
-.notification-bell:hover {
-  background-color: #f0f0f0;
-  transform: scale(1.05);
-}
-
-.notification-badge {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  background-color: #ff4444;
-  color: white;
-  font-size: 12px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.dropdown {
-  position: absolute;
-  top: 90%;
-  right: 0;
-  width: 350px; /* Keep the dropdown width */
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
-
-.dropdown-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px;
-  border-bottom: 1px solid gray;
-}
-
-.dropdown-header h3 {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0px;
-}
-
-.mark-read {
-  background: none;
-  border: none;
-  color: #2196F3;
-  cursor: pointer;
-  font-size: 12px;
-  padding: 4px 8px;
-}
-
-.mark-read:hover {
-  text-decoration: underline;
-}
-
-.notification-items {
-  max-height: 138px; /* Adjust for shorter/longer dropdown */
-  overflow-y: auto;
-}
-
-.notification-item {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-  position: relative;
-}
-
-.notification-item.unread {
-  background-color: #f8f9fa;
-}
-
-.unread-indicator {
-  position: absolute;
-  left: 1px;
-  top: 38%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  background-color: #2196F3;
-  border-radius: 50%;
-}
-
-.notification-message {
-  font-size: 13px;
-  margin-bottom: 4px;
-  color: #333;
-}
-
-.notification-date {
-  font-size: 11px;
-  color: #666;
-}
-
-
-
-
