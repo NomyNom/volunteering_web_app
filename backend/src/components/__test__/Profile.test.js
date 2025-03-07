@@ -2,7 +2,7 @@
 
 const request = require("supertest");
 const express = require("express");
-const profileRouter = require("./Profile"); 
+const profileRouter = require("../Routes/Profile"); 
 
 const app = express();
 app.use(express.json());

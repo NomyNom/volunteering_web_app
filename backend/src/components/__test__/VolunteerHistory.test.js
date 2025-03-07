@@ -9,7 +9,7 @@ describe("Volunteer History API", () => {
   // reset modules before each test so the in memory array is reinitialized
   beforeEach(() => {
     jest.resetModules();
-    historyRouter = require("./VolunteerHistory"); // Adjust the path if needed.
+    historyRouter = require("../Routes/VolunteerHistory"); // Adjust the path if needed.
     app = express();
     app.use(express.json());
     app.use("/api/volunteer/history", historyRouter);

@@ -9,7 +9,7 @@ describe("Notifications API", () => {
   // reset modules and the in-memory data before each test
   beforeEach(() => {
     jest.resetModules();
-    notificationsRouter = require("./Notifications");
+    notificationsRouter = require("../Routes/Notifications");
     app = express();
     app.use(express.json());
     app.use("/api/notifications", notificationsRouter);
