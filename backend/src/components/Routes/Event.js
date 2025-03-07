@@ -2,7 +2,35 @@ const express = require('express');
 const router = express.Router();
 
 // In-memory storage for events (replace with MongoDB later)
-let events = [];
+let events = [
+  {
+    id: '1a2b3c4d',
+    eventName: 'Community Clean-Up',
+    eventDescription: 'Help clean up the local park and surrounding areas.',
+    location: 'Central Park, New York',
+    requiredSkills: ['cleaning', 'organizing'],
+    urgency: 'high',
+    eventDate: '2023-12-15',
+  },
+  {
+    id: '5e6f7g8h',
+    eventName: 'Food Drive',
+    eventDescription: 'Collect and distribute food to those in need.',
+    location: 'Downtown Shelter, Los Angeles',
+    requiredSkills: ['logistics', 'communication'],
+    urgency: 'medium',
+    eventDate: '2023-11-20',
+  },
+  {
+    id: '9i0j1k2l',
+    eventName: 'Charity Marathon',
+    eventDescription: 'Run to raise funds for local charities.',
+    location: 'Golden Gate Park, San Francisco',
+    requiredSkills: ['event planning', 'fundraising'],
+    urgency: 'low',
+    eventDate: '2024-01-10',
+  },
+];
 
 // Helper function to validate event data
 const validateEventData = (eventName, eventDescription, location, requiredSkills, urgency, eventDate) => {
