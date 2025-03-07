@@ -60,4 +60,5 @@ router.put('/markAllAsRead', (req, res) => {
   });
 });
 
+
 module.exports = router;

@@ -7,34 +7,34 @@ const VolunteerMatching = () => {
   const [matches, setMatches] = useState([]);
   const [error, setError] = useState('');
 
-//   useEffect(() => {
-//     const fetchMatches = async () => {
-//       try {
-//         const token = localStorage.getItem('token'); // Assumes token is stored after login
-//         const response = await fetch(
-//           `${process.env.REACT_APP_API_URL}/api/volunteers/matching`,
-//           {
-//             method: 'GET',
-//             headers: {
-//               'Content-Type': 'application/json',
-//               'Authorization': `Bearer ${token}`,
-//             },
-//           }
-//         );
-//         const data = await response.json();
-//         if (response.ok) {
-//           setMatches(data.matches);
-//         } else {
-//           setError(data.msg || 'Failed to fetch matching data');
-//         }
-//       } catch (err) {
-//         console.error('Error fetching matching data:', err);
-//         setError('An error occurred while fetching matching data');
-//       }
-//     };
-
-//     fetchMatches();
-//   }, []);
+  useEffect(() => {
+    const fetchMatches = async () => {
+      try {
+        const token = localStorage.getItem('token'); // Assumes token is stored after login
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/volunteer/matching`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await response.json();
+        if (response.ok) {
+          setMatches(data.matches);
+        } else {
+          setError(data.msg || 'Failed to fetch matching data');
+        }
+      } catch (err) {
+        console.error('Error fetching matching data:', err);
+        setError('An error occurred while fetching matching data');
+      }
+    };
+  
+    fetchMatches();
+  }, []);
 
 
     useEffect(() => {
