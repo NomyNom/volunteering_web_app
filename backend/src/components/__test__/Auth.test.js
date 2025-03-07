@@ -11,7 +11,7 @@ describe("Auth API", () => {
   beforeEach(() => {
     jest.resetModules();
     // import a fresh instance of the router
-    authRouter = require("./Auth"); // adjust the path if necessary
+    authRouter = require("../Routes/Auth"); // adjust the path if necessary
     app = express();
     app.use(express.json());
     app.use("/api/auth", authRouter);
