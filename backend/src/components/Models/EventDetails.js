@@ -1,4 +1,4 @@
-// backend/src/components/models/EventDetails.js
+// backend/src/components/Models/EventDetails.js
 const mongoose = require('mongoose');
 
 const eventDetailsSchema = new mongoose.Schema({
@@ -30,11 +30,6 @@ const eventDetailsSchema = new mongoose.Schema({
   eventDate: {
     type: Date,
     required: [true, 'Event Date is required']
-  },
-  // Optionally, a reference to the user who created the event:
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserCredentials'
   }
 }, { timestamps: true });
 
