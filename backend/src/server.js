@@ -1,10 +1,9 @@
 // backend/server.js
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const cors = require('cors');
-
-dotenv.config();
 
 const authRoutes = require('./components/Routes/Auth');
 const profileRoutes = require('./components/Routes/Profile');
