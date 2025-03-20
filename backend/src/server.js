@@ -22,16 +22,16 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 
-// // Connect to MongoDB
-// mongoose
-//   .connect(process.env.MONGO_URI)
-//   // .then(() => console.log('MongoDB connected'))
-//   .then ( () => {
-//     app.listen(PORT, () => {
-//       console.log('Connected to MongoDB & Server running on port', PORT, '!')
-//     })
-//   })
-//   .catch(err => console.error('MongoDB connection error:', err));
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGO_URI)
+  // .then(() => console.log('MongoDB connected'))
+  .then ( () => {
+    app.listen(PORT, () => {
+      console.log('Connected to MongoDB & Server running on port', PORT, '!')
+    })
+  })
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // Mount routes
 app.use('/api/auth', authRoutes);
@@ -46,6 +46,6 @@ app.use('/api/volunteer/matching', volunteerMatchingRoutes);
 //   res.json({mssg: 'Welcome to the app'})
 // })
 
-app.listen(PORT, () => {
-  console.log('Server running on port', PORT)
-})
+// app.listen(PORT, () => {
+//   console.log('Server running on port', PORT)
+// })
