@@ -1,59 +1,88 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-
-// temp in memory storage for user profiles 
-let userProfiles = {
-    "123": {
-        fullName: "John Doe",
-        address1: "123 Main St",
-        address2: "",
-        city: "Houston",
-        state: "TX",
-        zip: "77001",
-        skills: ["Test1", "Test2"],
-        preferences: "Preference 1",
-        availability: ["2025-03-05"]
-    }
-};
+const UserProfile = require('../models/UserProfile');
 
 // GET /api/profile/:userId
-// retrieve the profile for given user ID if it exists in memory
-router.get("/:userId", (req, res) => {
-    const userId = req.params.userId;
-    const profile = userProfiles[userId];
-
-    if (!profile) {
-        return res.status(404).json({ msg: "Profile not found (dummy data)" });
-    }
-
+router.get('/:userId', async (req, res) => {
+  try {
+    const profile = await UserProfile.findOne({ user: req.params.userId });
+    if (!profile) return res.status(404).json({ msg: "Profile not found" });
     res.json(profile);
+  } catch (err) {
+    if (err.name === 'CastError') return res.status(404).json({ msg: "Profile not found" });
+    console.error(err);
+    res.status(500).json({ msg: "Server error while retrieving profile" });
+  }
+});
+
+// POST /api/profile
+router.post('/', async (req, res) => {
+  const { user, fullName, address1, address2, city, state, zipCode, skills, preferences, availability } = req.body;
+  if (!user || !fullName || !address1 || !city || !state || !zipCode || !skills || !availability) {
+    return res.status(400).json({ msg: "Missing required fields" });
+  }
+  try {
+    if (await UserProfile.findOne({ user })) {
+      return res.status(400).json({ msg: "Profile already exists for this user" });
+    }
+    const newProfile = new UserProfile({ user, fullName, address1, address2: address2 || "", city, state, zipCode, skills, preferences: preferences || "", availability });
+    await newProfile.save();
+    res.status(201).json({ msg: "Profile created successfully", profile: newProfile });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server error while creating profile" });
+  }
 });
 
 // PUT /api/profile/:userId
-// creates or updates a user profile (stored in memory)
-router.put("/:userId", (req, res) => {
-    const userId = req.params.userId;
-    const { fullName, address1, address2, city, state, zip, skills, preferences, availability } = req.body;
-
-    // Validations
-    if (!fullName || !address1 || !city || !state || !zip) {
-        return res.status(400).json({ msg: "Full Name, Address, City, State, and Zip are required" });
+router.put('/:userId', async (req, res) => {
+    const { fullName, address1, address2, city, state, zipCode, skills, preferences, availability } = req.body;
+  
+    // Only these five fields remain required
+    if (!fullName || !address1 || !city || !state || !zipCode) {
+      return res.status(400).json({ msg: "Missing required fields" });
     }
-
-    // store profile in memory (temp solution before database implementation)
-    userProfiles[userId] = {
+  
+    try {
+      const updateData = {
         fullName,
         address1,
         address2: address2 || "",
         city,
         state,
-        zip,
-        skills: skills || [],
+        zipCode,
+        skills: Array.isArray(skills) ? skills : [],
         preferences: preferences || "",
-        availability: availability || []
-    };
+        availability: Array.isArray(availability) ? availability : []
+      };
+  
+      const updatedProfile = await UserProfile.findOneAndUpdate(
+        { user: req.params.userId },
+        updateData,
+        { new: true, runValidators: true }
+      );
+  
+      if (!updatedProfile) return res.status(404).json({ msg: "Profile not found" });
+      res.json({ msg: "Profile updated successfully", profile: updatedProfile });
+    } catch (err) {
+      if (err.name === 'CastError') return res.status(404).json({ msg: "Profile not found" });
+      console.error(err);
+      res.status(500).json({ msg: "Server error while updating profile" });
+    }
+  });
+  
 
-    res.json({ msg: "Profile saved successfully (dummy data)", profile: userProfiles[userId] });
+// DELETE /api/profile/:userId
+router.delete('/:userId', async (req, res) => {
+  try {
+    const deletedProfile = await UserProfile.findOneAndDelete({ user: req.params.userId });
+    if (!deletedProfile) return res.status(404).json({ msg: "Profile not found" });
+    res.json({ msg: "Profile deleted successfully" });
+  } catch (err) {
+    if (err.name === 'CastError') return res.status(404).json({ msg: "Profile not found" });
+    console.error(err);
+    res.status(500).json({ msg: "Server error while deleting profile" });
+  }
 });
 
 module.exports = router;
