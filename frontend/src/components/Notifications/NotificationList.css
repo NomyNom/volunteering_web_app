@@ -100,26 +100,30 @@
   }
   
   /* Table header gradient */
-  .notification-table thead {
-    background: linear-gradient(90deg, #6d49f2, #f238a0);
-    color: #fff;
-  }
-  
-  .notification-table th {
-    padding: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.9rem;
-  }
-  
-  /* Table cells */
-  .notification-table td {
-    padding: 16px;
-    border-bottom: 1px solid #eee;
-    vertical-align: middle;
-    color: #333;
-  }
+.notification-table thead {
+  background: linear-gradient(90deg, #6d49f2, #f238a0);
+  color: #fff;
+}
+
+/* Center the header text */
+.notification-table th {
+  padding: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  text-align: center; /* Center column titles */
+}
+
+/* Table cells */
+.notification-table td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  color: #333;
+  text-align: center; /* Center cell data */
+}
+
   
   /* Hover effect */
   .notification-table tbody tr:hover {
