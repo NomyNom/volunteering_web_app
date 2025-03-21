@@ -51,6 +51,8 @@ body, html {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   width: 95%;
   animation: fadeIn 0.3s ease-in-out;
+  /* Positioning for back button if needed */
+  position: relative;
 }
 
 @keyframes fadeIn {
@@ -65,11 +67,12 @@ body, html {
 }
 
 .back-button-container {
-  position: absolute;
+  position: fixed;    /* or absolute if you prefer scrolling away */
   top: 20px;
   left: 20px;
-  margin-bottom: 0;
+  z-index: 9999;      /* ensures it's above other elements */
 }
+
 
 .back-button {
   display: inline-flex;
@@ -101,8 +104,8 @@ body, html {
 /* ----------------------------- */
 .history-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+  /* Use standard table layout so headers line up correctly */
+  border-collapse: collapse;
   background-color: #fff;
   border-radius: 8px;
   overflow: hidden;
@@ -118,6 +121,7 @@ body, html {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-align: left; /* Ensure headers are left-aligned */
 }
 
 .history-table td {
@@ -160,6 +164,12 @@ body, html {
 .status-badge.waitlist {
   background-color: #fff8e1;
   color: #ff8c00;
+}
+
+/* New color styling for "Scheduled" status */
+.status-badge.scheduled {
+  background-color: #fffae6; /* Light yellow */
+  color: #b58900;           /* Darker golden/brown text */
 }
 
 .error-message {
