@@ -37,8 +37,9 @@ function EventForm() {
 
   const skillsValue = formData.requiredSkills.join(", ");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validate that required fields are filled
     if (
       !formData.eventName ||
       !formData.eventDescription ||
@@ -49,11 +50,33 @@ function EventForm() {
       alert("Please fill in all required fields.");
       return;
     }
-
-    console.log("✅ Event Created:", formData);
-    alert("🎉 Event created successfully!");
-    navigate("/"); // Redirect to home page after submission
+  
+    try {
+      const response = await fetch("http://localhost:4000/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // Send formData as JSON; ensure requiredSkills is an array
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Failed to create event"}`);
+        return;
+      }
+  
+      const data = await response.json();
+      console.log("✅ Event Created:", data);
+      alert("🎉 Event created successfully!");
+      navigate("/"); // Redirect to home page after successful creation
+    } catch (error) {
+      console.error("Error creating event:", error);
+      alert("Error creating event, please try again later.");
+    }
   };
+  
 
   return (
     <div className="event-form-container">
