@@ -8,10 +8,13 @@ function EventForm() {
     eventName: "",
     eventDescription: "",
     location: "",
-    requiredSkills: [],
+    requiredSkills: [], // this will be set on submit
     urgency: "",
     eventDate: "",
   });
+
+  // New state to hold the raw skills input
+  const [rawSkills, setRawSkills] = useState("");
 
   const urgencyLevels = ["Low", "Medium", "High"];
 
@@ -23,22 +26,14 @@ function EventForm() {
     }));
   };
 
+  // Update rawSkills so the user can type freely
   const handleSkillsChange = (e) => {
-    const skillsArray = e.target.value
-      .split(",")
-      .map((skill) => skill.trim())
-      .filter((skill) => skill !== "");
-
-    setFormData((prevData) => ({
-      ...prevData,
-      requiredSkills: skillsArray,
-    }));
+    setRawSkills(e.target.value);
   };
 
-  const skillsValue = formData.requiredSkills.join(", ");
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validate that required fields are filled
     if (
       !formData.eventName ||
       !formData.eventDescription ||
@@ -50,9 +45,37 @@ function EventForm() {
       return;
     }
 
-    console.log("✅ Event Created:", formData);
-    alert("🎉 Event created successfully!");
-    navigate("/"); // Redirect to home page after submission
+    // Convert raw skills string into an array on submission
+    const skillsArray = rawSkills
+      .split(",")
+      .map((skill) => skill.trim())
+      .filter((skill) => skill !== "");
+
+    const eventData = { ...formData, requiredSkills: skillsArray };
+
+    try {
+      const response = await fetch("http://localhost:4000/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Failed to create event"}`);
+        return;
+      }
+
+      const data = await response.json();
+      console.log("✅ Event Created:", data);
+      alert("🎉 Event created successfully!");
+      navigate("/"); // Redirect to home page after successful creation
+    } catch (error) {
+      console.error("Error creating event:", error);
+      alert("Error creating event, please try again later.");
+    }
   };
 
   return (
@@ -107,7 +130,7 @@ function EventForm() {
               id="requiredSkills"
               name="requiredSkills"
               placeholder="e.g. Communication, Teamwork, Leadership"
-              value={skillsValue}
+              value={rawSkills}
               onChange={handleSkillsChange}
               required
             />
