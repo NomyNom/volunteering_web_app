@@ -1,20 +1,25 @@
-// backend/server.js
+// backend/src/server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path'); // Added to resolve the .env file path
 
-dotenv.config();
+// Load the .env file from the same directory as this file
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+// Debug: Log the MONGO_URI to verify it's loaded correctly
+console.log('MONGO_URI:', process.env.MONGO_URI);
 
 const authRoutes = require('./components/Routes/Auth');
 const profileRoutes = require('./components/Routes/Profile');
 const eventRoutes = require('./components/Routes/Event');
-const notificationsRoutes = require('./components/Routes/Notifications')
-const volunteerHistoryRoutes = require('./components/Routes/VolunteerHistory')
-const volunteerMatchingRoutes = require('./components/Routes/VolunteerMatching')
+const notificationsRoutes = require('./components/Routes/Notifications');
+const volunteerHistoryRoutes = require('./components/Routes/VolunteerHistory');
+const volunteerMatchingRoutes = require('./components/Routes/VolunteerMatching');
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT; // Uses the PORT from your .env
 
 // Middleware:
 // a concept where functions can be used to process incoming requests before they reach 
@@ -26,10 +31,10 @@ app.use(cors());
 mongoose
   .connect(process.env.MONGO_URI)
   // .then(() => console.log('MongoDB connected'))
-  .then ( () => {
+  .then(() => {
     app.listen(PORT, () => {
-      console.log('Connected to MongoDB & Server running on port', PORT, '!')
-    })
+      console.log('Connected to MongoDB & Server running on port', PORT, '!');
+    });
   })
   .catch(err => console.error('MongoDB connection error:', err));
 

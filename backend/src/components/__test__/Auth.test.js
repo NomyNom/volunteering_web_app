@@ -2,15 +2,14 @@
 
 const request = require("supertest");
 const express = require("express");
+// Note: dont reimport mongoose here since our global setup handles the connection
 
 describe("Auth API", () => {
   let app;
   let authRouter;
 
-  // reset modules before each test to clear dummyUsers and get a fresh router instance
   beforeEach(() => {
-    jest.resetModules();
-    // import a fresh instance of the router
+    // Removed jest.resetModules() to preserve the existing Mongoose connection
     authRouter = require("../Routes/Auth"); // adjust the path if necessary
     app = express();
     app.use(express.json());
@@ -19,138 +18,72 @@ describe("Auth API", () => {
 
   describe("POST /api/auth/register", () => {
     it("should register a new user with valid input", async () => {
-      const payload = {
-        email: "test@example.com",
-        password: "password123",
-        role: "volunteer"
-      };
-
-      const res = await request(app)
-        .post("/api/auth/register")
-        .send(payload);
-
+      const payload = { email: "test@example.com", password: "password123", role: "volunteer" };
+      const res = await request(app).post("/api/auth/register").send(payload);
       expect(res.status).toBe(200);
-      expect(res.body).toHaveProperty("msg", "User registered successfully (dummy)");
+      expect(res.body).toHaveProperty("msg", "User registered successfully");
     });
 
     it("should return 400 when email is missing", async () => {
-      const payload = {
-        password: "password123",
-        role: "volunteer"
-      };
-
-      const res = await request(app)
-        .post("/api/auth/register")
-        .send(payload);
-
+      const res = await request(app).post("/api/auth/register").send({ password: "password123", role: "volunteer" });
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("msg", "Email and password are required");
     });
 
     it("should return 400 when password is missing", async () => {
-      const payload = {
-        email: "test@example.com",
-        role: "volunteer"
-      };
-
-      const res = await request(app)
-        .post("/api/auth/register")
-        .send(payload);
-
+      const res = await request(app).post("/api/auth/register").send({ email: "test@example.com", role: "volunteer" });
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("msg", "Email and password are required");
     });
 
-    it("should return 400 when password is less than 6 characters", async () => {
-      const payload = {
-        email: "test@example.com",
-        password: "12345",
-        role: "volunteer"
-      };
-
+    it("should return 400 when password is too short", async () => {
       const res = await request(app)
         .post("/api/auth/register")
-        .send(payload);
-
+        .send({ email: "test@example.com", password: "12345", role: "volunteer" });
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("msg", "Password must be at least 6 characters long");
     });
 
-    it("should return 400 if user already exists", async () => {
-      const payload = {
-        email: "test@example.com",
-        password: "password123",
-        role: "volunteer"
-      };
-
+    it("should return 400 if email already exists", async () => {
+      const payload = { email: "test@example.com", password: "password123", role: "volunteer" };
       // 1st registration should succeed.
-      await request(app)
-        .post("/api/auth/register")
-        .send(payload);
-      
-      // 2nd registration w/ same email should fail
-      const res = await request(app)
-        .post("/api/auth/register")
-        .send(payload);
-
+      await request(app).post("/api/auth/register").send(payload);
+      // 2nd registration with the same email should fail.
+      const res = await request(app).post("/api/auth/register").send(payload);
       expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty("msg", "User already exists");
+      expect(res.body).toHaveProperty("msg", "Email already exists");
     });
   });
 
   describe("POST /api/auth/login", () => {
-    // register a user before running login tests
     beforeEach(async () => {
-      const payload = {
-        email: "test@example.com",
-        password: "password123",
-        role: "volunteer"
-      };
       await request(app)
         .post("/api/auth/register")
-        .send(payload);
+        .send({ email: "login@test.com", password: "password123", role: "volunteer" });
     });
 
     it("should login with valid credentials", async () => {
-      const payload = {
-        email: "test@example.com",
-        password: "password123"
-      };
-
       const res = await request(app)
         .post("/api/auth/login")
-        .send(payload);
-
+        .send({ email: "login@test.com", password: "password123" });
       expect(res.status).toBe(200);
       expect(res.body).toHaveProperty("token", "dummy-token");
-      expect(res.body).toHaveProperty("user");
-      expect(res.body.user).toHaveProperty("email", "test@example.com");
+      expect(res.body.user).toHaveProperty("email", "login@test.com");
+      expect(res.body.user).toHaveProperty("_id");
     });
 
     it("should return 400 when email or password is missing", async () => {
-      const payload = {
-        email: "test@example.com"
-        // pw missing
-      };
-
       const res = await request(app)
         .post("/api/auth/login")
-        .send(payload);
-
+        .send({ email: "login@test.com" });
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("msg", "Email and password are required");
     });
 
     it("should return 400 with invalid credentials", async () => {
-      const payload = {
-        email: "test@example.com",
-        password: "wrongpassword"
-      };
-
       const res = await request(app)
         .post("/api/auth/login")
-        .send(payload);
-
+        .send({ email: "login@test.com", password: "wrongpassword" });
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty("msg", "Invalid credentials");
     });

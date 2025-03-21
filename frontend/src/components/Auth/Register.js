@@ -1,50 +1,43 @@
 // src/components/Auth/Register.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import './Register.css'; // Import the CSS for styling
+import './Register.css';
 
 const Register = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '', role: 'volunteer' });
   const [error, setError] = useState('');
 
-  // const handleRegister = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001'}/api/auth/register`, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(form),
-  //     });
-  //     const data = await response.json();
-  //     if (response.ok) {
-  //       navigate('/login');
-  //     } else {
-  //       setError(data.msg || 'Registration failed');
-  //     }
-  //   } catch (err) {
-  //     console.error('Registration error:', err);
-  //     setError('An error occurred during registration');
-  //   }
-  // };
-
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    setError('');
 
-    // Dummy registration logic: assume registration is always successful
-    if (form.email && form.password) {
-      // Optionally, you could simulate saving the registration data somewhere
-      // For now, simply navigate to the login page
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/auth/register`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+        }
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.msg || 'Registration failed');
+        return;
+      }
+
       navigate('/login');
-    } else {
-      setError("Please fill in all required fields.");
+    } catch (err) {
+      console.error('Registration error:', err);
+      setError('An error occurred during registration');
     }
   };
 
   return (
     <div className="register-container">
       <div className="register-card">
-        {/* Back button to Home */}
         <div className="back-button-container">
           <Link to="/" className="back-button">Back to Home</Link>
         </div>
