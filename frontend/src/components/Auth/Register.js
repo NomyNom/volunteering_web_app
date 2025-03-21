@@ -1,4 +1,4 @@
-// src/components/Auth/Register.jsx
+// src/components/Auth/Register.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Register.css';
@@ -10,25 +10,18 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setError('');
-
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/auth/register`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
-        }
-      );
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
       const data = await response.json();
-
-      if (!response.ok) {
+      if (response.ok) {
+        navigate('/login');
+      } else {
         setError(data.msg || 'Registration failed');
-        return;
       }
-
-      navigate('/login');
     } catch (err) {
       console.error('Registration error:', err);
       setError('An error occurred during registration');

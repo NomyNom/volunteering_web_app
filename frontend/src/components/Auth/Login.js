@@ -1,5 +1,4 @@
-// src/components/Auth/Login.jsx
-
+// src/components/Auth/Login.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
@@ -11,28 +10,24 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');
-
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/auth/login`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(credentials),
-        }
-      );
+      // Replace the URL with your actual backend URL if needed
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+      });
+      
       const data = await response.json();
-      if (!response.ok) {
+      if (response.ok) {
+        // Store token and user details in localStorage
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        // Navigate to the profile page
+        navigate('/profile');
+      } else {
         setError(data.msg || 'Login failed');
-        return;
       }
-
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      localStorage.setItem('userId', data.user._id); // ← This line stores the ObjectId
-
-      navigate('/profile');
     } catch (err) {
       console.error('Login error:', err);
       setError('An error occurred during login');
@@ -42,17 +37,36 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-card">
-        <Link to="/" className="back-button">Back to Home</Link>
+        {/* Back button to Home */}
+        <div className="back-button-container">
+          <Link to="/" className="back-button">Back to Home</Link>
+        </div>
         <h2>Login</h2>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleLogin}>
-          <label>Email:</label>
-          <input type="email" value={credentials.email} required onChange={e => setCredentials({...credentials, email: e.target.value})}/>
-          <label>Password:</label>
-          <input type="password" value={credentials.password} required onChange={e => setCredentials({...credentials, password: e.target.value})}/>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={credentials.email}
+              onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={credentials.password}
+              onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+              required
+            />
+          </div>
           <button type="submit" className="btn-primary">Login</button>
         </form>
-        <p>Don't have an account? <Link to="/register">Register Here</Link></p>
+        <p>
+          Don't have an account? <Link to="/register">Register Here</Link>
+        </p>
       </div>
     </div>
   );

@@ -2,14 +2,14 @@
 const mongoose = require('mongoose');
 
 const volunteerHistorySchema = new mongoose.Schema({
+  // Now volunteer is just a string (e.g., "John Doe") instead of an ObjectId
   volunteer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserCredentials',
+    type: String,
     required: true
   },
+  // Similarly, event is just a string (e.g., "Food Drive 2023")
   event: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'EventDetails',
+    type: String,
     required: true
   },
   participationStatus: {

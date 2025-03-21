@@ -1,69 +1,108 @@
-// backend/src/components/routes/VolunteerHistory.js
 const express = require('express');
 const router = express.Router();
+const VolunteerHistory = require('../Models/VolunteerHistory');
 
-// In-memory "database" for volunteer history records
-let volunteerHistoryRecords = [
-  {
-    id: 1,
-    eventName: "Food Drive 2023",
-    eventDescription: "Annual community food collection event to help local shelters.",
-    location: "City Square",
-    requiredSkills: ["Organization", "Teamwork"],
-    urgency: "High",
-    eventDate: "2023-12-15",
-    participationStatus: "Completed"
+// Helper function to validate volunteer history data
+const validateVolunteerHistoryData = (volunteer, event, participationStatus) => {
+  if (!volunteer || !event || !participationStatus) {
+    return { isValid: false, error: 'All fields (volunteer, event, participationStatus) are required' };
   }
-];
-
-// Utility function to validate a volunteer history record
-const validateRecord = (record) => {
-  const errors = [];
-  if (!record.eventName || typeof record.eventName !== 'string' || record.eventName.length > 100) {
-    errors.push("Invalid or missing eventName (max 100 characters).");
+  if (typeof volunteer !== 'string' || typeof event !== 'string' || typeof participationStatus !== 'string') {
+    return { isValid: false, error: 'Invalid data types' };
   }
-  if (!record.eventDescription || typeof record.eventDescription !== 'string' || record.eventDescription.length > 500) {
-    errors.push("Invalid or missing eventDescription (max 500 characters).");
+  const allowedStatuses = ['Completed', 'Scheduled', 'Cancelled'];
+  if (!allowedStatuses.includes(participationStatus)) {
+    return { isValid: false, error: `Participation status must be one of ${allowedStatuses.join(', ')}` };
   }
-  if (!record.location || typeof record.location !== 'string' || record.location.length > 100) {
-    errors.push("Invalid or missing location (max 100 characters).");
-  }
-  if (!record.requiredSkills || !Array.isArray(record.requiredSkills)) {
-    errors.push("Invalid or missing requiredSkills (must be an array).");
-  }
-  if (!record.urgency || !["Low", "Medium", "High"].includes(record.urgency)) {
-    errors.push("Invalid or missing urgency (must be 'Low', 'Medium', or 'High').");
-  }
-  if (!record.eventDate || isNaN(Date.parse(record.eventDate))) {
-    errors.push("Invalid or missing eventDate.");
-  }
-  if (!record.participationStatus || typeof record.participationStatus !== 'string') {
-    errors.push("Invalid or missing participationStatus.");
-  }
-  return errors;
+  return { isValid: true };
 };
 
-// GET /api/volunteer/history - Retrieves all volunteer history records
-router.get('/', (req, res) => {
-  res.json({ records: volunteerHistoryRecords });
+// POST /api/volunteer/history - Create a new volunteer history record
+router.post('/', async (req, res) => {
+  const { volunteer, event, participationStatus } = req.body;
+  const validation = validateVolunteerHistoryData(volunteer, event, participationStatus);
+  if (!validation.isValid) {
+    return res.status(400).json({ error: validation.error });
+  }
+  
+  try {
+    const newRecord = new VolunteerHistory({
+      volunteer,
+      event,
+      participationStatus,
+    });
+    await newRecord.save();
+    res.status(201).json({ msg: 'Volunteer history record added successfully', record: newRecord });
+  } catch (err) {
+    console.error('Error creating volunteer history record:', err);
+    res.status(500).json({ error: 'Server error while creating volunteer history record' });
+  }
 });
 
-// POST /api/volunteer/history - Adds a new volunteer history record
-router.post('/', (req, res) => {
-  const newRecord = req.body;
-  const errors = validateRecord(newRecord);
-  if (errors.length > 0) {
-    return res.status(400).json({ errors });
+// GET /api/volunteer/history - Retrieve all volunteer history records
+router.get('/', async (req, res) => {
+  try {
+    // Use populate to get the full EventDetails document
+    const records = await VolunteerHistory.find().populate('event');
+    res.json({ records });
+  } catch (err) {
+    console.error('Error retrieving volunteer history records:', err);
+    res.status(500).json({ error: 'Server error while retrieving volunteer history records' });
   }
-  newRecord.id = volunteerHistoryRecords.length > 0
-    ? volunteerHistoryRecords[volunteerHistoryRecords.length - 1].id + 1
-    : 1;
-  volunteerHistoryRecords.push(newRecord);
-  res.status(201).json({
-    msg: "Volunteer history record added successfully",
-    record: newRecord
-  });
+});
+
+
+
+// GET /api/volunteer/history/:id - Retrieve a specific volunteer history record by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const record = await VolunteerHistory.findById(req.params.id);
+    if (!record) {
+      return res.status(404).json({ error: 'Volunteer history record not found' });
+    }
+    res.json({ record });
+  } catch (err) {
+    console.error('Error retrieving volunteer history record:', err);
+    res.status(500).json({ error: 'Server error while retrieving volunteer history record' });
+  }
+});
+
+// PUT /api/volunteer/history/:id - Update a specific volunteer history record by ID
+router.put('/:id', async (req, res) => {
+  const { volunteer, event, participationStatus } = req.body;
+  const validation = validateVolunteerHistoryData(volunteer, event, participationStatus);
+  if (!validation.isValid) {
+    return res.status(400).json({ error: validation.error });
+  }
+  
+  try {
+    const record = await VolunteerHistory.findByIdAndUpdate(
+      req.params.id,
+      { volunteer, event, participationStatus },
+      { new: true, runValidators: true }
+    );
+    if (!record) {
+      return res.status(404).json({ error: 'Volunteer history record not found' });
+    }
+    res.json({ msg: 'Volunteer history record updated', record });
+  } catch (err) {
+    console.error('Error updating volunteer history record:', err);
+    res.status(500).json({ error: 'Server error while updating volunteer history record' });
+  }
+});
+
+// DELETE /api/volunteer/history/:id - Delete a specific volunteer history record by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const record = await VolunteerHistory.findByIdAndDelete(req.params.id);
+    if (!record) {
+      return res.status(404).json({ error: 'Volunteer history record not found' });
+    }
+    res.json({ msg: 'Volunteer history record deleted' });
+  } catch (err) {
+    console.error('Error deleting volunteer history record:', err);
+    res.status(500).json({ error: 'Server error while deleting volunteer history record' });
+  }
 });
 
 module.exports = router;
-
