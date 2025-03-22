@@ -3,14 +3,14 @@
 const request = require("supertest");
 const express = require("express");
 const mongoose = require("mongoose");
-const EventDetails = require("../Models/EventDetails"); // Ensure this path is correct
+const EventDetails = require("../Models/EventDetails");
 const eventRouter = require("../Routes/Event");
 
 const app = express();
 app.use(express.json());
 app.use("/api/events", eventRouter);
 
-// Define a valid event payload once for reuse in tests (dates updated to 2025)
+// Define a valid event payload once for reuse in tests
 const validEventPayload = {
   eventName: "Community Clean-Up",
   eventDescription: "Help clean up the local park and surrounding areas.",
@@ -23,7 +23,7 @@ const validEventPayload = {
 describe("Event API", () => {
   let consoleErrorSpy;
 
-  // Suppress console.error globally during tests
+  // Suppress console.error globally during tests so the output isn't filled w errors
   beforeAll(() => {
     consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
   });
