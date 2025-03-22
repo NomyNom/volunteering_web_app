@@ -17,6 +17,8 @@ router.get('/:userId', async (req, res) => {
 
 // POST /api/profile
 router.post('/', async (req, res) => {
+    console.log("Incoming profile payload:", req.body);    // DEBUGGING
+
   const { user, fullName, address1, address2, city, state, zipCode, skills, preferences, availability } = req.body;
   if (!user || !fullName || !address1 || !city || !state || !zipCode || !skills || !availability) {
     return res.status(400).json({ msg: "Missing required fields" });
