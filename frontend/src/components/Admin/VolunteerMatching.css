@@ -79,6 +79,7 @@
   background-color: #f0f8ff;
 }
 
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .volunteer-matching-page {
@@ -93,4 +94,15 @@
     padding: 0.75rem;
     font-size: 0.9rem;
   }
+}
+
+/* ACTIVE LINK STYLE */
+.nav-item.active {
+  background: #4a4a4a; /* Modern gray highlight */
+  cursor: default;
+}
+
+/* When sidebar is collapsed, hide the active background */
+.sidebar:not(.open) .nav-item.active {
+  background: none;
 }
