@@ -1,12 +1,6 @@
 body {
     background: linear-gradient(90deg, #28a745, #20c3c9);
   }
-
-html, body {
-    height: 100%;
-    overflow-y: auto;
-}
-
   
 .navContainer {
     position: fixed;
@@ -134,10 +128,4 @@ button[type="submit"]:hover {
   background-color: #1a5ec8;
 }
 
-.nav-icon {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 8px;
-  }
-  
   

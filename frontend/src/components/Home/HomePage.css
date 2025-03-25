@@ -7,7 +7,7 @@
   color: #fff;
 }
 
-/* SIDEBAR */
+/* SIDEBAR STYLES */
 .sidebar {
   width: 60px; /* collapsed width */
   height: 100vh;
@@ -63,23 +63,6 @@
   transition: background 0.3s;
 }
 
-/* Icon in the sidebar links */
-.nav-icon {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 8px;
-}
-
-/* The text that appears next to the icon */
-.nav-text {
-  margin-left: 2px;
-}
-
-/* Hover effect on nav items */
-.nav-item:hover {
-  background: #dd2476; /* Pinkish hover color */
-}
-
 /* Hide nav group titles and text when collapsed */
 .sidebar:not(.open) .nav-group-title {
   display: none;
@@ -88,7 +71,7 @@
   display: none;
 }
 
-/* Disable clicks on nav links in collapsed mode */
+/* Disable clicks and hovers on nav links when sidebar is collapsed */
 .sidebar:not(.open) .sidebar-links {
   pointer-events: none;
 }
@@ -98,42 +81,12 @@
   background: none !important;
 }
 
-/* LOGOUT BUTTON */
-.sidebar-logout {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  width: 100%;
-  text-align: left; /* or center, adjust as desired */
+.nav-text {
+  margin-left: 10px;
 }
 
-/* Match logout button style to the rest of the sidebar */
-.logout-btn {
-  display: flex;
-  align-items: center;
-  padding: 15px 20px;
-  width: 100%;
-  background: transparent;
-  color: #fff;
-  border: none;
-  font-size: 1rem;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.logout-btn:hover {
-  background: #dd2476; /* Same pinkish hover color */
-}
-
-.logout-icon {
-  margin-right: 10px;
-  flex-shrink: 0; /* Prevent the icon from shrinking */
-}
-
-/* Hide the logout button when the sidebar is collapsed */
-.sidebar:not(.open) .sidebar-logout {
-  display: none;
+.nav-item:hover {
+  background: #dd2476; /* Pinkish hover color */
 }
 
 /* MAIN CONTENT */
@@ -143,7 +96,7 @@
   transition: margin-left 0.3s ease-in-out;
 }
 
-/* Only shift content if the user is logged in (sidebar present) */
+/* Only shift if the user is logged in and the sidebar is present */
 .with-sidebar {
   margin-left: 60px; /* default collapsed width */
 }
@@ -161,7 +114,7 @@
   padding: 1rem;
 }
 
-/* Auth buttons (Login/Register) */
+/* Auth buttons (Login/Register/Logout) */
 .auth-buttons a,
 .auth-buttons button {
   margin-left: 1rem;
@@ -190,7 +143,7 @@
   background-color: #c21d65;
 }
 
-/* MAIN SECTION */
+/* CENTER CONTENT */
 .home-main {
   display: flex;
   flex-direction: column;
@@ -204,7 +157,7 @@
   font-size: 2.2rem;
   font-weight: bold;
   color: #fff;
-  margin: auto; /* center vertically */
+  margin: auto; /* center vertically in the container */
 }
 
 .access-message {
@@ -212,20 +165,13 @@
   margin-top: 2rem;
 }
 
-/* Hide page scrollbars globally if desired */
+/* In your global CSS (e.g., index.css or HomePage.css) */
 html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* Hides both horizontal and vertical scrollbars */
 }
 
-/* Active sidebar link style */
-.nav-item.active {
-  background: #4a4a4a; /* Gray highlight */
-  cursor: default;
-}
 
-/* Hide active highlight when sidebar is collapsed */
-.sidebar:not(.open) .nav-item.active {
-  background: none;
-}
+
+
