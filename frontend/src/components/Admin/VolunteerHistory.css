@@ -1,6 +1,4 @@
-/* Example Google Font (optional): */
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'); */
-
+/* Basic resets */
 body, html {
   margin: 0;
   padding: 0;
@@ -19,31 +17,27 @@ body, html {
   background: radial-gradient(circle at top left, #6d49f2, #f238a0);
 }
 
-/* ----------------------------- */
-/* New Top Header for the Page   */
-/* ----------------------------- */
+/* PAGE HEADER */
 .page-header {
-  margin-top: -20px;
+  margin-top: -20px;  /* adjust as desired */
   margin-bottom: 40px;
   text-align: center;
-  color: #fff;
+  color: #fff; /* White text on gradient background */
 }
 
 .page-title {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
-  color: #fff;
+  color: #fff; /* White text */
 }
 
 .page-subtitle {
   font-size: 1.2rem;
-  color: #fff;
+  color: #fff; /* White text */
 }
 
-/* ----------------------------- */
-/* White Card (History Section)  */
-/* ----------------------------- */
+/* White card for the table */
 .history-card {
   background: #fff;
   padding: 2rem;
@@ -51,7 +45,6 @@ body, html {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   width: 95%;
   animation: fadeIn 0.3s ease-in-out;
-  /* Positioning for back button if needed */
   position: relative;
 }
 
@@ -66,45 +59,14 @@ body, html {
   }
 }
 
-.back-button-container {
-  position: fixed;    /* or absolute if you prefer scrolling away */
-  top: 20px;
-  left: 20px;
-  z-index: 9999;      /* ensures it's above other elements */
-}
-
-
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  border: 2px solid #ff4444;
-  border-radius: 6px;
-  background-color: #ff4444;
-  color: #fff;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.back-button:hover {
-  background-color: #cc0000;
-  border-color: #cc0000;
-  color: #fff;
-}
-
+/* Container for scrolling horizontally if table is wide */
 .history-table-container {
   overflow-x: auto;
 }
 
-/* ----------------------------- */
-/* Table Layout                  */
-/* ----------------------------- */
+/* Table layout */
 .history-table {
   width: 100%;
-  /* Use standard table layout so headers line up correctly */
   border-collapse: collapse;
   background-color: #fff;
   border-radius: 8px;
@@ -121,7 +83,7 @@ body, html {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  text-align: left; /* Ensure headers are left-aligned */
+  text-align: left; /* left-aligned headers */
 }
 
 .history-table td {
@@ -130,13 +92,12 @@ body, html {
   vertical-align: middle;
 }
 
+/* Hover row effect */
 .history-table tbody tr:hover {
   background-color: #f8e6ff;
 }
 
-/* ----------------------------- */
-/* Status Badges                 */
-/* ----------------------------- */
+/* Status badges */
 .status-badge {
   display: inline-block;
   padding: 6px 12px;
@@ -172,6 +133,7 @@ body, html {
   color: #b58900;           /* Darker golden/brown text */
 }
 
+/* Error message styling */
 .error-message {
   color: #dc3545;
   margin-bottom: 1rem;
@@ -180,16 +142,26 @@ body, html {
   border-radius: 4px;
 }
 
-/* ----------------------------- */
-/* Responsive Adjustments        */
-/* ----------------------------- */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .history-card {
     padding: 1.5rem;
   }
-
   .history-table th,
   .history-table td {
     padding: 10px;
   }
+}
+
+/* SIDEBAR + ACTIVE LINK HIGHLIGHTING (if shared or local) */
+
+/* Example: Hide highlight when collapsed */
+.sidebar:not(.open) .nav-item.active {
+  background: none;
+}
+
+/* Active link highlight */
+.nav-item.active {
+  background: #4a4a4a; /* Gray highlight */
+  cursor: default;
 }
