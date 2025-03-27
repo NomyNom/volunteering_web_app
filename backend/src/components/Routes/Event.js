@@ -1,6 +1,9 @@
+// File: src/Routes/Event.js
+
 const express = require('express');
 const router = express.Router();
 const EventDetails = require('../Models/EventDetails');
+const Notification = require('../models/Notification'); // Added for notifications
 
 // Helper function to validate event data
 const validateEventData = (eventName, eventDescription, location, requiredSkills, urgency, eventDate) => {
@@ -33,6 +36,7 @@ router.post('/', async (req, res) => {
   }
   
   try {
+    // 1. Create the new event
     const newEvent = new EventDetails({
       eventName,
       eventDescription,
@@ -42,7 +46,15 @@ router.post('/', async (req, res) => {
       eventDate,
     });
     await newEvent.save();
-    res.status(201).json({ msg: 'Event created', event: newEvent });
+
+    // 2. Create a notification for volunteers
+    // In a real implementation you might fetch volunteers from your user/volunteer model and create individual notifications.
+    // For simplicity, we're creating a single notification entry.
+    const notificationMessage = `New event created: ${newEvent.eventName}`;
+    const newNotification = new Notification({ message: notificationMessage });
+    await newNotification.save();
+
+    res.status(201).json({ msg: 'Event created and notification sent', event: newEvent });
   } catch (err) {
     console.error("Error creating event:", err);
     res.status(500).json({ error: 'Server error while creating event' });

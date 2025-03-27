@@ -1,6 +1,4 @@
 // frontend/src/App.jsx
-
-// frontend/src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './components/Home/HomePage';
@@ -11,6 +9,7 @@ import EventForm from './components/Admin/EventForm';
 import VolunteerMatching from './components/Admin/VolunteerMatching';
 import VolunteerHistory from './components/Admin/VolunteerHistory';
 import NotificationList from './components/Notifications/NotificationList';
+import SendNotification from './components/Admin/SendNotification';  // New admin notification page
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -48,7 +47,7 @@ function App() {
           } 
         />
         <Route 
-          path="/admin/history" 
+          path="/volunteer/history" 
           element={
             <ProtectedRoute>
               <VolunteerHistory />
@@ -63,6 +62,14 @@ function App() {
             </ProtectedRoute>
           } 
         />
+        <Route
+          path="/admin/notifications"
+          element={
+            <ProtectedRoute>
+              <SendNotification />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
@@ -72,6 +79,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 // import React from 'react';

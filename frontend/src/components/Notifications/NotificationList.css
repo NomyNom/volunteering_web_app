@@ -2,104 +2,83 @@
 
 /* Full-page gradient background */
 .notification-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 10px;
-    background: radial-gradient(circle at top left, #6d49f2, #f238a0);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 10px;
+  background: radial-gradient(circle at top left, #6d49f2, #f238a0);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* White card container for notifications */
+.notification-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  width: 90%;
+  max-width: 800px;
+  animation: fadeIn 0.3s ease-in-out;
+  margin: auto; /* Center the card */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  /* White card container for notifications */
-  .notification-card {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    width: 90%;
-    max-width: 800px;
-    animation: fadeIn 0.3s ease-in-out;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Fade-in animation */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Back button container at the top */
-  .back-button-container {
-    margin-bottom: 1rem;
-  }
-  
-  /* Back button styling */
-  .back-button {
-    text-decoration: none;
-    background-color: #2575fc;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    border: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-  }
-  
-  .back-button:hover {
-    background-color: #1a5ec8;
-  }
-  
-  /* Header row: Title + Mark All as Read button */
-  .notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  /* Title styling */
-  .notification-title {
-    margin: 0;
-    font-size: 1.8rem;
-    color: #333;
-  }
-  
-  /* Mark All as Read button */
-  .mark-all-read {
-    background-color: #dd2476;
-    color: #fff;
-    border: none;
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  .mark-all-read:hover {
-    background-color: #c21d65;
-  }
-  
-  /* Table styling */
-  .notification-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  /* Table header gradient */
+}
+
+/* Header row: Title + Mark All as Read button */
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Title styling */
+.notification-title {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Mark All as Read button */
+.mark-all-read {
+  background-color: #dd2476;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.mark-all-read:hover {
+  background-color: #c21d65;
+}
+
+/* Table styling */
+.notification-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Table header gradient */
 .notification-table thead {
   background: linear-gradient(90deg, #6d49f2, #f238a0);
   color: #fff;
@@ -112,7 +91,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 0.9rem;
-  text-align: center; /* Center column titles */
+  text-align: center;
 }
 
 /* Table cells */
@@ -121,12 +100,29 @@
   border-bottom: 1px solid #eee;
   vertical-align: middle;
   color: #333;
-  text-align: center; /* Center cell data */
+  text-align: center;
 }
 
-  
-  /* Hover effect */
-  .notification-table tbody tr:hover {
-    background-color: #f8e6ff;
-  }
-  
+/* Hover effect */
+.notification-table tbody tr:hover {
+  background-color: #f8e6ff;
+}
+
+/* Active sidebar link style */
+.nav-item.active {
+  background: #4a4a4a;
+  cursor: default;
+}
+
+/* Hide active highlight when sidebar is collapsed */
+.sidebar:not(.open) .nav-item.active {
+  background: none;
+}
+
+/* NEW: Center the main content container */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

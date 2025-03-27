@@ -1,6 +1,4 @@
-/* Example Google Font (optional): */
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'); */
-
+/* Basic resets */
 body, html {
   margin: 0;
   padding: 0;
@@ -19,9 +17,7 @@ body, html {
   background: radial-gradient(circle at top left, #6d49f2, #f238a0);
 }
 
-/* ----------------------------- */
-/* New Top Header for the Page   */
-/* ----------------------------- */
+/* PAGE HEADER */
 .page-header {
   margin-top: -20px;
   margin-bottom: 40px;
@@ -41,17 +37,16 @@ body, html {
   color: #fff;
 }
 
-/* ----------------------------- */
-/* White Card (History Section)  */
-/* ----------------------------- */
+/* White card for the table */
 .history-card {
   background: #fff;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   width: 95%;
+  max-width: 800px; /* Limit the maximum width */
+  margin: auto;     /* Center the card */
   animation: fadeIn 0.3s ease-in-out;
-  /* Positioning for back button if needed */
   position: relative;
 }
 
@@ -66,45 +61,14 @@ body, html {
   }
 }
 
-.back-button-container {
-  position: fixed;    /* or absolute if you prefer scrolling away */
-  top: 20px;
-  left: 20px;
-  z-index: 9999;      /* ensures it's above other elements */
-}
-
-
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  border: 2px solid #ff4444;
-  border-radius: 6px;
-  background-color: #ff4444;
-  color: #fff;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.back-button:hover {
-  background-color: #cc0000;
-  border-color: #cc0000;
-  color: #fff;
-}
-
+/* Container for scrolling horizontally if table is wide */
 .history-table-container {
   overflow-x: auto;
 }
 
-/* ----------------------------- */
-/* Table Layout                  */
-/* ----------------------------- */
+/* Table layout */
 .history-table {
   width: 100%;
-  /* Use standard table layout so headers line up correctly */
   border-collapse: collapse;
   background-color: #fff;
   border-radius: 8px;
@@ -121,7 +85,7 @@ body, html {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  text-align: left; /* Ensure headers are left-aligned */
+  text-align: left;
 }
 
 .history-table td {
@@ -130,13 +94,12 @@ body, html {
   vertical-align: middle;
 }
 
+/* Hover row effect */
 .history-table tbody tr:hover {
   background-color: #f8e6ff;
 }
 
-/* ----------------------------- */
-/* Status Badges                 */
-/* ----------------------------- */
+/* Status badges */
 .status-badge {
   display: inline-block;
   padding: 6px 12px;
@@ -166,12 +129,12 @@ body, html {
   color: #ff8c00;
 }
 
-/* New color styling for "Scheduled" status */
 .status-badge.scheduled {
-  background-color: #fffae6; /* Light yellow */
-  color: #b58900;           /* Darker golden/brown text */
+  background-color: #fffae6;
+  color: #b58900;
 }
 
+/* Error message styling */
 .error-message {
   color: #dc3545;
   margin-bottom: 1rem;
@@ -180,16 +143,26 @@ body, html {
   border-radius: 4px;
 }
 
-/* ----------------------------- */
-/* Responsive Adjustments        */
-/* ----------------------------- */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .history-card {
     padding: 1.5rem;
   }
-
   .history-table th,
   .history-table td {
     padding: 10px;
   }
+}
+
+/* SIDEBAR + ACTIVE LINK HIGHLIGHTING */
+
+/* Hide active highlight when sidebar is collapsed */
+.sidebar:not(.open) .nav-item.active {
+  background: none;
+}
+
+/* Active link highlight */
+.nav-item.active {
+  background: #4a4a4a;
+  cursor: default;
 }

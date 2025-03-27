@@ -1,71 +1,69 @@
-// VolunteerMatching.js
-import React, { useState, useEffect } from 'react';
+// SendNotification.js
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import './VolunteerMatching.css';
+import './SendNotification.css';
 
-const VolunteerMatching = () => {
-  const [matches, setMatches] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+const SendNotification = () => {
+  const [message, setMessage] = useState('');
+  const [date, setDate] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+
   const location = useLocation();
   const navigate = useNavigate();
-  
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
 
-  useEffect(() => {
-    fetch('http://localhost:4000/api/volunteer/matching', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch matching data');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setMatches(data.matches);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoading(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    try {
+      const response = await fetch('http://localhost:4000/api/notifications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ message, date })
       });
-  }, []);
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.error || 'Failed to send notification');
+      } else {
+        const data = await response.json();
+        setSuccess(data.msg || 'Notification sent successfully!');
+        setMessage('');
+        setDate('');
+      }
+    } catch (err) {
+      setError('Server error');
+    }
+  };
 
-  // Logout handler
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
   };
 
   return (
-    <div className="volunteer-matching-page">
+    <div className="send-notification-page">
       <div className="with-sidebar-container">
         {token && (
           <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-            <button
-              className="toggle-btn"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-            >
+            <button className="toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
               ☰
             </button>
             <nav className="sidebar-links">
-              {/* Home link */}
-              <Link
-                to="/"
-                className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
-              >
+              {/* Home Link */}
+              <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
                 <span className="nav-icon">
                   {/* Home icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
+                    width="20" height="20"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -79,8 +77,7 @@ const VolunteerMatching = () => {
                 </span>
                 <span className="nav-text">Home</span>
               </Link>
-
-              {/* Admin Pages */}
+              {/* Admin Links */}
               {user?.role === 'admin' && (
                 <div className="nav-group">
                   <span className="nav-group-title">Admin Pages</span>
@@ -92,8 +89,7 @@ const VolunteerMatching = () => {
                       {/* Calendar icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
+                        width="20" height="20"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -117,8 +113,7 @@ const VolunteerMatching = () => {
                       {/* Users icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
+                        width="20" height="20"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -142,8 +137,7 @@ const VolunteerMatching = () => {
                       {/* Paper plane icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
+                        width="20" height="20"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -160,13 +154,11 @@ const VolunteerMatching = () => {
                 </div>
               )}
             </nav>
-
             <div className="sidebar-logout">
               <button className="logout-btn" onClick={handleLogout}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
+                  width="20" height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -187,38 +179,33 @@ const VolunteerMatching = () => {
 
         <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
           <div className="page-header">
-            <h1 className="page-title">Volunteer Matching</h1>
-            {/* <p className="page-subtitle">Match volunteers to events</p> */}
+            <h1 className="page-title">Send Notification</h1>
           </div>
 
-          <div className="volunteer-matching-container">
-            {error && (
-              <div style={{ color: 'red', marginBottom: '1rem' }}>
-                {error}
+          {/* White card container */}
+          <div className="send-notification-container">
+            <form onSubmit={handleSubmit} className="notification-form">
+              <div className="form-group">
+                <label>Message:</label>
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Enter notification message..."
+                  required
+                />
               </div>
-            )}
-            {loading ? (
-              <p>Loading matching data...</p>
-            ) : matches.length === 0 ? (
-              <p>No matching data available.</p>
-            ) : (
-              <table className="volunteer-matching-table">
-                <thead>
-                  <tr>
-                    <th>Volunteer Name</th>
-                    <th>Matched Event</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {matches.map((match) => (
-                    <tr key={match._id}>
-                      <td>{match.volunteerName}</td>
-                      <td>{match.matchedEvent}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+              <div className="form-group">
+                <label>Schedule Date (optional):</label>
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                />
+              </div>
+              <button type="submit" className="btn-primary">Send Notification</button>
+            </form>
+            {error && <p className="error">{error}</p>}
+            {success && <p className="success">{success}</p>}
           </div>
         </div>
       </div>
@@ -226,4 +213,4 @@ const VolunteerMatching = () => {
   );
 };
 
-export default VolunteerMatching;
+export default SendNotification;
