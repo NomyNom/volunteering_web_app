@@ -7,7 +7,6 @@ function EventForm() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Original form state
   const [formData, setFormData] = useState({
     eventName: "",
     eventDescription: "",
@@ -17,16 +16,13 @@ function EventForm() {
     eventDate: "",
   });
 
-  // Raw skills input (comma-separated)
   const [rawSkills, setRawSkills] = useState("");
   const urgencyLevels = ["Low", "Medium", "High"];
 
-  // Sidebar
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
 
-  // Handle changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -36,7 +32,6 @@ function EventForm() {
     setRawSkills(e.target.value);
   };
 
-  // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -78,7 +73,6 @@ function EventForm() {
     }
   };
 
-  // Logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -87,20 +81,15 @@ function EventForm() {
 
   return (
     <div className="event-form-container">
-      {/* with-sidebar-container ensures the sidebar + main content layout */}
       <div className="with-sidebar-container">
-        {/* SIDEBAR (like VolunteerHistory) */}
         {token && (
           <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-            <button
-              className="toggle-btn"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-            >
+            <button className="toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
               ☰
             </button>
 
             <nav className="sidebar-links">
-              {/* Always show Home link */}
+              {/* Home link */}
               <Link
                 to="/"
                 className={`nav-item ${location.pathname === "/" ? "active" : ""}`}
@@ -125,15 +114,12 @@ function EventForm() {
                 <span className="nav-text">Home</span>
               </Link>
 
-              {/* Admin Pages only */}
               {user?.role === "admin" && (
                 <div className="nav-group">
                   <span className="nav-group-title">Admin Pages</span>
                   <Link
                     to="/admin/event"
-                    className={`nav-item ${
-                      location.pathname === "/admin/event" ? "active" : ""
-                    }`}
+                    className={`nav-item ${location.pathname === "/admin/event" ? "active" : ""}`}
                   >
                     <span className="nav-icon">
                       {/* Calendar icon */}
@@ -158,9 +144,7 @@ function EventForm() {
                   </Link>
                   <Link
                     to="/admin/matching"
-                    className={`nav-item ${
-                      location.pathname === "/admin/matching" ? "active" : ""
-                    }`}
+                    className={`nav-item ${location.pathname === "/admin/matching" ? "active" : ""}`}
                   >
                     <span className="nav-icon">
                       {/* Users icon */}
@@ -182,6 +166,29 @@ function EventForm() {
                       </svg>
                     </span>
                     <span className="nav-text">Volunteer Matching</span>
+                  </Link>
+                  <Link
+                    to="/admin/notifications"
+                    className={`nav-item ${location.pathname === "/admin/notifications" ? "active" : ""}`}
+                  >
+                    <span className="nav-icon">
+                      {/* Paper plane icon */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        viewBox="0 0 24 24"
+                      >
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                      </svg>
+                    </span>
+                    <span className="nav-text">Send Notification</span>
                   </Link>
                 </div>
               )}
@@ -211,9 +218,7 @@ function EventForm() {
           </div>
         )}
 
-        {/* MAIN CONTENT with the original white card layout */}
         <div className={`main-content ${token ? "with-sidebar" : ""}`}>
-          {/* White card with heading inside, as originally */}
           <div className="event-form-card">
             <h2>Create Event</h2>
             <form onSubmit={handleSubmit}>

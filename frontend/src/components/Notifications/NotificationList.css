@@ -22,120 +22,107 @@
   width: 90%;
   max-width: 800px;
   animation: fadeIn 0.3s ease-in-out;
+  margin: auto; /* Center the card */
 }
 
 /* Fade-in animation */
 @keyframes fadeIn {
-0% {
-  opacity: 0;
-  transform: translateY(10px);
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-100% {
-  opacity: 1;
-  transform: translateY(0);
-}
-}
-
-/*
-.back-button-container {
-margin-bottom: 1rem;
-}
-
-.back-button {
-text-decoration: none;
-background-color: #2575fc;
-color: #fff;
-padding: 0.5rem 1rem;
-border-radius: 20px;
-border: none;
-font-size: 0.9rem;
-font-weight: 600;
-transition: background-color 0.2s ease;
-}
-
-.back-button:hover {
-background-color: #1a5ec8;
-}
-*/
 
 /* Header row: Title + Mark All as Read button */
 .notification-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 /* Title styling */
 .notification-title {
-margin: 0;
-font-size: 1.8rem;
-color: #333;
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
 }
 
 /* Mark All as Read button */
 .mark-all-read {
-background-color: #dd2476;
-color: #fff;
-border: none;
-border-radius: 20px;
-padding: 0.5rem 1rem;
-cursor: pointer;
-font-size: 0.9rem;
-transition: background-color 0.3s ease;
+  background-color: #dd2476;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
 }
 
 .mark-all-read:hover {
-background-color: #c21d65;
+  background-color: #c21d65;
 }
 
 /* Table styling */
 .notification-table {
-width: 100%;
-border-collapse: collapse;
-border-spacing: 0;
-background-color: #fff;
-border-radius: 8px;
-overflow: hidden;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* Table header gradient */
 .notification-table thead {
-background: linear-gradient(90deg, #6d49f2, #f238a0);
-color: #fff;
+  background: linear-gradient(90deg, #6d49f2, #f238a0);
+  color: #fff;
 }
 
 /* Center the header text */
 .notification-table th {
-padding: 16px;
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-font-size: 0.9rem;
-text-align: center; /* Center column titles */
+  padding: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 /* Table cells */
 .notification-table td {
-padding: 16px;
-border-bottom: 1px solid #eee;
-vertical-align: middle;
-color: #333;
-text-align: center; /* Center cell data */
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  color: #333;
+  text-align: center;
 }
 
 /* Hover effect */
 .notification-table tbody tr:hover {
-background-color: #f8e6ff;
+  background-color: #f8e6ff;
 }
 
 /* Active sidebar link style */
 .nav-item.active {
-  background: #4a4a4a; /* Gray highlight */
+  background: #4a4a4a;
   cursor: default;
 }
 
 /* Hide active highlight when sidebar is collapsed */
 .sidebar:not(.open) .nav-item.active {
   background: none;
+}
+
+/* NEW: Center the main content container */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

@@ -1,0 +1,107 @@
+/* Full-page gradient background (similar to your other pages) */
+.send-notification-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2af598, #009efd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  /* Container for the white card + sidebar */
+  .with-sidebar-container {
+    display: flex;
+    width: 100%;
+  }
+  
+  /* White card for sending notifications */
+  .send-notification-container {
+    background: #fff;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #333;
+    margin: 0 auto; /* center horizontally within .main-content */
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Form styling */
+  .notification-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-group input[type="date"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Button styling */
+  .btn-primary {
+    background-color: #2575fc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: #1a5ec8;
+  }
+  
+  /* Error/success messages */
+  .error {
+    color: #dc3545;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  .success {
+    color: #28a745;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  /* Sidebar + nav-item styling is identical to your other pages,
+     so we won't redefine them here. 
+     Just ensure the .sidebar, .toggle-btn, .nav-item, etc. 
+     are in your shared CSS or also copied here if needed.
+  */
+  
