@@ -1,3 +1,5 @@
+/* EventForm.css */
+
 /* Active sidebar link style */
 .nav-item.active {
   background: #4a4a4a; /* Gray highlight */
@@ -9,15 +11,14 @@
   background: none;
 }
 
-/* (Your existing EventForm.css content below remains unchanged) */
-
+/* Main container styling */
 .event-form-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #ffffff, #f0f0f0); /* Changed to modern light background */
   padding: 2rem;
 }
 
-/* Example container for sidebar + main content */
+/* Container for sidebar + main content */
 .with-sidebar-container {
   display: flex;
 }
@@ -80,5 +81,3 @@
 .btn-primary:hover {
   background-color: #1a5ec8;
 }
-
-  

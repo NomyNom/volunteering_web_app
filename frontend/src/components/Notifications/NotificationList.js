@@ -80,7 +80,6 @@ const NotificationList = () => {
                 className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
               >
                 <span className="nav-icon">
-                  {/* Home icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -108,7 +107,6 @@ const NotificationList = () => {
                     className={`nav-item ${location.pathname === '/profile' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* User icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -132,7 +130,6 @@ const NotificationList = () => {
                     className={`nav-item ${location.pathname === '/notifications' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Bell icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -155,7 +152,6 @@ const NotificationList = () => {
                     className={`nav-item ${location.pathname === '/volunteer/history' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Clock icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -185,7 +181,6 @@ const NotificationList = () => {
                     className={`nav-item ${location.pathname === '/admin/event' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Calendar icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -210,7 +205,6 @@ const NotificationList = () => {
                     className={`nav-item ${location.pathname === '/admin/matching' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Users icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -258,13 +252,17 @@ const NotificationList = () => {
           </div>
         )}
 
-        {/* MAIN CONTENT with the same layout as before */}
+        {/* MAIN CONTENT */}
         <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
-          {/* White card container (as before) */}
+          {/* Page header styled like in Volunteer History */}
+          <div className="page-header">
+            <h1 className="page-title">Notifications</h1>
+            <p className="page-subtitle">Stay up-to-date with your alerts</p>
+          </div>
+
+          {/* Notification card container */}
           <div className="notification-card">
-            {/* The original .notification-header row with title & button */}
-            <div className="notification-header">
-              <h2 className="notification-title">Notifications</h2>
+            <div className="header-actions">
               <button className="mark-all-read" onClick={markAllAsRead}>
                 Mark All as Read
               </button>

@@ -1,14 +1,15 @@
-/* Full-page container with a gradient background */
+/* VolunteerMatching.css */
+
+/* Full-page container with modern light background */
 .volunteer-matching-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #ffffff, #f0f0f0); /* Updated background */
   padding: 2rem;
-  /* Removed display: flex; align-items: center; justify-content: center; */
 }
 
 /* Container for the sidebar + main content */
 .with-sidebar-container {
-  display: flex; /* Keep sidebar on the left, content on the right */
+  display: flex;
 }
 
 /* White card container for volunteer matching content */
@@ -21,10 +22,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333; /* Text color */
+  color: #333;
 }
-
-/* (Optional) If you had a page-header at the top, no special styling needed here */
 
 /* Table styling */
 .volunteer-matching-table {
@@ -41,7 +40,7 @@
 }
 
 .volunteer-matching-table th {
-  background-color: #2575fc;
+  background-color: #4a4a4a; /* Changed from blue to dark gray */
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.05rem;

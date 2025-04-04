@@ -7,7 +7,7 @@ const VolunteerHistory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
   const location = useLocation();
@@ -39,6 +39,17 @@ const VolunteerHistory = () => {
       });
   }, []);
 
+  // Calculate summary statistics
+  const summary = volunteerHistory.reduce(
+    (acc, record) => {
+      acc.total += 1;
+      const status = record.participationStatus.toLowerCase();
+      acc[status] = (acc[status] || 0) + 1;
+      return acc;
+    },
+    { total: 0 }
+  );
+
   return (
     <div className="history-container">
       <div className="with-sidebar-container">
@@ -58,7 +69,6 @@ const VolunteerHistory = () => {
                 className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
               >
                 <span className="nav-icon">
-                  {/* Home icon */}
                   <svg 
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -85,7 +95,6 @@ const VolunteerHistory = () => {
                     className={`nav-item ${location.pathname === '/profile' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* User icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -109,7 +118,6 @@ const VolunteerHistory = () => {
                     className={`nav-item ${location.pathname === '/notifications' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Bell icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -132,7 +140,6 @@ const VolunteerHistory = () => {
                     className={`nav-item ${location.pathname === '/volunteer/history' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Clock icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -161,7 +168,6 @@ const VolunteerHistory = () => {
                     className={`nav-item ${location.pathname === '/admin/event' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Calendar icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -176,7 +182,6 @@ const VolunteerHistory = () => {
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                         <line x1="16" y1="2" x2="16" y2="6" />
                         <line x1="8" y1="2" x2="8" y2="6" />
-                        <line x1="3" y1="10" x2="21" y2="10" />
                       </svg>
                     </span>
                     <span className="nav-text">Event Management</span>
@@ -186,7 +191,6 @@ const VolunteerHistory = () => {
                     className={`nav-item ${location.pathname === '/admin/matching' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Users icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -234,7 +238,7 @@ const VolunteerHistory = () => {
           </div>
         )}
 
-        {/* MAIN CONTENT: includes page header + the white card */}
+        {/* MAIN CONTENT: includes header, summary section, and the white card */}
         <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
           {/* Page header block with the title and subtitle */}
           <div className="page-header">
@@ -243,6 +247,28 @@ const VolunteerHistory = () => {
               Track your volunteer activities and statuses.
             </p>
           </div>
+
+          {/* Summary Section (only if there is history) */}
+          {!loading && !error && volunteerHistory.length > 0 && (
+            <div className="summary-section">
+              <div className="summary-item">
+                <span>{summary.total}</span>
+                <span>Total Events</span>
+              </div>
+              <div className="summary-item">
+                <span>{summary.completed || 0}</span>
+                <span>Completed</span>
+              </div>
+              <div className="summary-item">
+                <span>{summary.scheduled || 0}</span>
+                <span>Scheduled</span>
+              </div>
+              <div className="summary-item">
+                <span>{summary.cancelled || 0}</span>
+                <span>Cancelled</span>
+              </div>
+            </div>
+          )}
 
           {/* White card container for the table */}
           <div className="history-card">
@@ -264,9 +290,29 @@ const VolunteerHistory = () => {
                   <tbody>
                     {volunteerHistory.map((record) => (
                       <tr key={record._id}>
-                        <td>{record.event}</td>
                         <td>
-                          <span className={`status-badge ${record.participationStatus.toLowerCase()}`}>
+                          <svg
+                            className="event-icon"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                          </svg>
+                          {record.event}
+                        </td>
+                        <td>
+                          <span
+                            className={`status-badge ${record.participationStatus.toLowerCase()}`}
+                          >
                             {record.participationStatus}
                           </span>
                         </td>

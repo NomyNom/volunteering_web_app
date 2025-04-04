@@ -11,7 +11,7 @@
 .sidebar {
   width: 60px; /* collapsed width */
   height: 100vh;
-  background: linear-gradient(160deg, #1a1a2e, #302b63);
+  background: linear-gradient(160deg, rgb(55, 53, 53), #000000);
   position: fixed;
   left: 0;
   top: 0;
@@ -77,8 +77,9 @@
 
 /* Hover effect on nav items */
 .nav-item:hover {
-  background: #dd2476; /* Pinkish hover color */
+  background: #484646; /* Gray hover color */
 }
+
 
 /* Hide nav group titles and text when collapsed */
 .sidebar:not(.open) .nav-group-title {
@@ -123,8 +124,9 @@
 }
 
 .logout-btn:hover {
-  background: #dd2476; /* Same pinkish hover color */
+  background: #464444; /* Gray hover color */
 }
+
 
 .logout-icon {
   margin-right: 10px;

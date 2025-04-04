@@ -2,10 +2,12 @@
 body, html {
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  /* Subtle gradient with a light blue tint for a brand accent */
+  background: linear-gradient(135deg, #ffffff, #f7f9fc);
   color: #333;
 }
 
+/* Volunteer History Container */
 .history-container {
   position: relative;
   display: flex;
@@ -13,41 +15,88 @@ body, html {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 10px;
-  background: radial-gradient(circle at top left, #6d49f2, #f238a0);
+  padding: 20px;
+  /* Using the same gradient as a base */
+  background: linear-gradient(135deg, #ffffff, #f7f9fc);
+  overflow: hidden;
 }
+
+/* Pseudo-element for a subtle background pattern */
+.history-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Larger dots (40x40), slightly darker fill (#999999), and higher opacity (0.2) */
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfKoseNCKYKya_y5xXxIvleUikE8dENwEudg&s");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; /* or 'contain', depending on your desired effect */
+
+  opacity: 0.3;
+}
+
 
 /* PAGE HEADER */
 .page-header {
-  margin-top: -20px;
-  margin-bottom: 40px;
+  margin-top: 0;
+  margin-bottom: 30px;
   text-align: center;
-  color: #fff;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
 }
 
 .page-title {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
-  color: #fff;
+  color: rgb(52, 51, 51);
 }
 
 .page-subtitle {
   font-size: 1.2rem;
-  color: #fff;
+  color: #666;
 }
 
-/* White card for the table */
+/* Summary section styling */
+.summary-section {
+  display: flex;
+  justify-content: center;
+  gap: 2rem; /* Adds spacing between summary items */
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #e6eaee;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: rgb(68, 67, 67);
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px; /* Vertical spacing between number and label */
+}
+
+.summary-item span {
+  font-weight: 600;
+}
+
+/* White card for the history items */
 .history-card {
   background: #fff;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   width: 95%;
-  max-width: 800px; /* Limit the maximum width */
-  margin: auto;     /* Center the card */
+  max-width: 800px;
+  margin: auto;
   animation: fadeIn 0.3s ease-in-out;
   position: relative;
+  z-index: 1; /* Ensure the card sits above the background pattern */
 }
 
 @keyframes fadeIn {
@@ -76,7 +125,7 @@ body, html {
 }
 
 .history-table thead {
-  background: linear-gradient(90deg, #6d49f2, #f238a0);
+  background: #4a4a4a;
   color: #fff;
 }
 
@@ -95,8 +144,11 @@ body, html {
 }
 
 /* Hover row effect */
+.history-table tbody tr {
+  transition: background-color 0.2s ease-in-out;
+}
 .history-table tbody tr:hover {
-  background-color: #f8e6ff;
+  background-color: #f8f8f8;
 }
 
 /* Status badges */
@@ -110,19 +162,20 @@ body, html {
 }
 
 .status-badge.completed {
-  background-color: #e6f4ea;
-  color: #137333;
-}
-
-.status-badge.registered {
-  background-color: #e8f0fe;
-  color: #1967d2;
+  background-color: #d4edda; /* Bootstrap success background */
+  color: #155724;            /* Bootstrap success text */
 }
 
 .status-badge.cancelled {
-  background-color: #ffe8e8;
-  color: #d93025;
+  background-color: #f8d7da; /* Bootstrap danger background */
+  color: #721c24;            /* Bootstrap danger text */
 }
+
+.status-badge.scheduled {
+  background-color: #d1ecf1; /* Bootstrap info background */
+  color: #0c5460;            /* Bootstrap info text */
+}
+
 
 .status-badge.waitlist {
   background-color: #fff8e1;
@@ -132,6 +185,14 @@ body, html {
 .status-badge.scheduled {
   background-color: #fffae6;
   color: #b58900;
+}
+
+/* Event icon styling */
+.event-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
 /* Error message styling */
@@ -152,17 +213,7 @@ body, html {
   .history-table td {
     padding: 10px;
   }
-}
-
-/* SIDEBAR + ACTIVE LINK HIGHLIGHTING */
-
-/* Hide active highlight when sidebar is collapsed */
-.sidebar:not(.open) .nav-item.active {
-  background: none;
-}
-
-/* Active link highlight */
-.nav-item.active {
-  background: #4a4a4a;
-  cursor: default;
+  .page-title {
+    font-size: 2.5rem;
+  }
 }
