@@ -1,9 +1,9 @@
 /* VolunteerMatching.css */
 
-/* Full-page container with modern light background */
+/* Full-page container with theme background */
 .volunteer-matching-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffffff, #f0f0f0); /* Updated background */
+  background: var(--bg-color); /* Uses theme variable */
   padding: 2rem;
 }
 
@@ -14,15 +14,15 @@
 
 /* White card container for volunteer matching content */
 .volunteer-matching-container {
-  background: #fff;
+  background: var(--card-bg); /* Uses theme variable */
+  color: var(--text-color);
   padding: 2.5rem;
   max-width: 800px;
   width: 100%;
-  margin: 2rem auto; /* Centers horizontally and adds spacing from top */
+  margin: 2rem auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333;
 }
 
 /* Table styling */
@@ -40,15 +40,15 @@
 }
 
 .volunteer-matching-table th {
-  background-color: #4a4a4a; /* Changed from blue to dark gray */
-  color: #fff;
+  background-color: var(--header-border); /* Uses theme header color */
+  color: var(--text-color);
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   font-size: 1rem;
 }
 
 .volunteer-matching-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
 }
 
 .volunteer-matching-table tr:hover {
@@ -73,7 +73,7 @@
 
 /* Active link highlight */
 .nav-item.active {
-  background: #4a4a4a; /* Gray highlight */
+  background: var(--header-border);
   cursor: default;
 }
 

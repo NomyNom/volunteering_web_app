@@ -1,9 +1,9 @@
 /* SendNotification.css */
 
-/* Full-page light gradient background */
+/* Full-page container using theme background */
 .send-notification-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  background: var(--bg-color); /* Uses theme variable */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,14 +19,14 @@
 
 /* White card for sending notifications */
 .send-notification-container {
-  background: #fff;
+  background: var(--card-bg); /* Uses theme variable */
+  color: var(--text-color);
   padding: 2rem;
   max-width: 600px;
   width: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  color: #333;
-  margin: 0 auto; /* center horizontally within .main-content */
+  margin: 0 auto;
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -100,4 +100,3 @@
   margin-top: 1rem;
   text-align: center;
 }
-

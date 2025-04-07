@@ -2,7 +2,7 @@
 
 /* Active sidebar link style */
 .nav-item.active {
-  background: #4a4a4a; /* Gray highlight */
+  background: var(--header-border); /* Uses theme variable */
   cursor: default;
 }
 
@@ -14,7 +14,7 @@
 /* Main container styling */
 .event-form-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffffff, #f0f0f0); /* Changed to modern light background */
+  background: var(--bg-color); /* Uses theme variable */
   padding: 2rem;
 }
 
@@ -25,7 +25,8 @@
 
 /* The white card */
 .event-form-card {
-  background: #ffffff;
+  background: var(--card-bg); /* Uses theme variable */
+  color: var(--text-color);
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -81,3 +82,9 @@
 .btn-primary:hover {
   background-color: #1a5ec8;
 }
+
+/* Hide the theme toggle when sidebar is collapsed */
+.sidebar:not(.open) .theme-toggle {
+  display: none;
+}
+

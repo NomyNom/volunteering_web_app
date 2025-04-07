@@ -1,6 +1,6 @@
 /* NotificationList.css */
 
-/* Full-page container with a subtle light blue gradient and background pattern */
+/* Full-page container */
 .notification-page {
   position: relative;
   display: flex;
@@ -10,9 +10,10 @@
   min-height: 100vh;
   margin: 0;
   padding: 20px;
-  background: linear-gradient(135deg, #ffffff, #f7f9fc);
+  background: var(--bg-color);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overflow: hidden;
+  color: var(--text-color);
 }
 
 .notification-page::before {
@@ -22,16 +23,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfKoseNCKYKya_y5xXxIvleUikE8dENwEudg&s");
+  background-image: var(--bg-pattern);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  opacity: 0.3;
+  opacity: var(--bg-pattern-opacity);
 }
 
-/* White card container for notifications */
+/* Notification Card */
 .notification-card {
-  background: #fff;
+  background: var(--card-bg);
+  color: var(--text-color);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
@@ -43,7 +45,6 @@
   z-index: 1;
 }
 
-/* Fade-in animation */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -55,34 +56,35 @@
   }
 }
 
-/* Page header styling matching volunteer history page */
+/* Page Header */
 .page-header {
   text-align: center;
   margin-bottom: 30px;
   padding-bottom: 10px;
   border-bottom: 2px solid #ddd;
+  color: var(--text-color);
 }
 
 .page-title {
   font-size: 3rem;
   margin: 0;
   font-weight: 700;
-  color: #333;
+  color: var(--text-color);
 }
 
 .page-subtitle {
   font-size: 1.2rem;
-  color: #666;
+  color: var(--text-color);
   margin-top: 5px;
 }
 
-/* Header actions container for the button */
+/* Header Actions */
 .header-actions {
   text-align: right;
   margin-bottom: 20px;
 }
 
-/* Mark All as Read button */
+/* Mark All as Read Button */
 .mark-all-read {
   background-color: #dd2476;
   color: #fff;
@@ -98,12 +100,12 @@
   background-color: #c21d65;
 }
 
-/* Table styling similar to the volunteer history table */
+/* Table Styling */
 .notification-table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  background-color: #fff;
+  background-color: var(--card-bg);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -127,14 +129,13 @@
   vertical-align: middle;
 }
 
-/* Hover effect on table rows */
 .notification-table tbody tr:hover {
   background-color: #f8f8f8;
 }
 
-/* Sidebar active link styling */
+/* Sidebar Active Link */
 .nav-item.active {
-  background: #4a4a4a;
+  background: #696868;
   color: #fff;
   cursor: default;
 }
@@ -143,12 +144,10 @@
   background: none;
 }
 
-/* Center main content container */
+/* Center Main Content */
 .main-content {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-
-

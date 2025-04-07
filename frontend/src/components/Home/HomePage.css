@@ -2,41 +2,75 @@
 .home-container {
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: var(--bg-color);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #fff;
+  color: var(--text-color);
 }
 
 /* SIDEBAR */
 .sidebar {
-  width: 60px; /* collapsed width */
+  width: 0; /* Fully collapsed: no visible sidebar */
   height: 100vh;
-  background: linear-gradient(160deg, rgb(55, 53, 53), #000000);
+  background: var(--sidebar-bg);
   position: fixed;
   left: 0;
   top: 0;
   padding-top: 20px;
-  transition: width 0.3s ease-in-out;
-  overflow: hidden; /* hides any overflow so text can't peek out */
+  transition: width 0.3s ease-in-out, background 0.3s;
+  overflow: visible; /* allow toggle button to be visible */
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar.open {
-  width: 250px; /* expanded width */
+  width: 250px; /* Expanded width */
+  background: var(--sidebar-bg-open);
 }
 
+/* Toggle button styling */
 .toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: -40px;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text-color);
   font-size: 24px;
   cursor: pointer;
-  margin-left: 10px;
 }
 
-/* Container for nav links */
+.sidebar.open .toggle-btn {
+  left: 10px;
+  right: auto;
+}
+
+/* Increase margin-top so the Home link is pushed down */
 .sidebar-links {
-  margin-top: 20px;
+  margin-top: 60px;
+}
+
+/* Hide the nav links container when sidebar is collapsed */
+.sidebar:not(.open) .sidebar-links {
+  display: none;
+}
+
+/* Theme toggle styling */
+.theme-toggle {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.theme-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--text-color);
+  font-size: 20px;
+  transition: transform 0.3s;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
 }
 
 /* Grouping volunteer/admin sections */
@@ -50,7 +84,7 @@
   margin: 0.5rem 1.25rem;
   font-size: 0.8rem;
   text-transform: uppercase;
-  color: #bbb;
+  color: var(--text-color);
 }
 
 /* Each nav link */
@@ -58,7 +92,7 @@
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  color: white;
+  color: var(--text-color);
   text-decoration: none;
   transition: background 0.3s;
 }
@@ -70,31 +104,29 @@
   margin-right: 8px;
 }
 
-/* The text that appears next to the icon */
+/* The text next to the icon */
 .nav-text {
   margin-left: 2px;
+  color: var(--text-color);
 }
 
 /* Hover effect on nav items */
 .nav-item:hover {
-  background: #484646; /* Gray hover color */
+  background: var(--sidebar-hover);
 }
-
 
 /* Hide nav group titles and text when collapsed */
-.sidebar:not(.open) .nav-group-title {
-  display: none;
-}
+.sidebar:not(.open) .nav-group-title,
 .sidebar:not(.open) .nav-text {
   display: none;
 }
 
-/* Disable clicks on nav links in collapsed mode */
+/* Disable clicks on nav links when collapsed */
 .sidebar:not(.open) .sidebar-links {
   pointer-events: none;
 }
 
-/* Also remove the pink hover effect in collapsed mode */
+/* Remove hover effect in collapsed mode */
 .sidebar:not(.open) .nav-item:hover {
   background: none !important;
 }
@@ -105,17 +137,16 @@
   bottom: 20px;
   left: 0;
   width: 100%;
-  text-align: left; /* or center, adjust as desired */
+  text-align: left;
 }
 
-/* Match logout button style to the rest of the sidebar */
 .logout-btn {
   display: flex;
   align-items: center;
   padding: 15px 20px;
   width: 100%;
   background: transparent;
-  color: #fff;
+  color: var(--text-color);
   border: none;
   font-size: 1rem;
   text-decoration: none;
@@ -124,16 +155,15 @@
 }
 
 .logout-btn:hover {
-  background: #464444; /* Gray hover color */
+  background: var(--sidebar-hover);
 }
-
 
 .logout-icon {
   margin-right: 10px;
-  flex-shrink: 0; /* Prevent the icon from shrinking */
+  flex-shrink: 0;
 }
 
-/* Hide the logout button when the sidebar is collapsed */
+/* Hide logout button when sidebar is collapsed */
 .sidebar:not(.open) .sidebar-logout {
   display: none;
 }
@@ -145,14 +175,12 @@
   transition: margin-left 0.3s ease-in-out;
 }
 
-/* Only shift content if the user is logged in (sidebar present) */
 .with-sidebar {
-  margin-left: 60px; /* default collapsed width */
+  margin-left: 0;
 }
 
-/* If the sidebar is open, expand margin */
 .sidebar.open + .main-content.with-sidebar {
-  margin-left: 250px; /* expanded width */
+  margin-left: 250px;
 }
 
 /* HEADER (top-right) */
@@ -163,7 +191,7 @@
   padding: 1rem;
 }
 
-/* Auth buttons (Login/Register) */
+/* Auth buttons */
 .auth-buttons a,
 .auth-buttons button {
   margin-left: 1rem;
@@ -205,8 +233,8 @@
 .welcome-message {
   font-size: 2.2rem;
   font-weight: bold;
-  color: #fff;
-  margin: auto; /* center vertically */
+  color: var(--text-color);
+  margin: auto;
 }
 
 .access-message {
@@ -218,16 +246,15 @@
 html, body {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Hides both horizontal and vertical scrollbars */
+  overflow: hidden;
 }
 
 /* Active sidebar link style */
 .nav-item.active {
-  background: #4a4a4a; /* Gray highlight */
+  background: #ddd;
   cursor: default;
 }
 
-/* Hide active highlight when sidebar is collapsed */
 .sidebar:not(.open) .nav-item.active {
   background: none;
 }
