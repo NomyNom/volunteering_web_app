@@ -1,6 +1,7 @@
 // SendNotification.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../App'; // Import ThemeContext
 import './SendNotification.css';
 
 const SendNotification = () => {
@@ -9,6 +10,8 @@ const SendNotification = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const { theme, toggleTheme } = useContext(ThemeContext); // Use theme context
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,6 +56,7 @@ const SendNotification = () => {
       <div className="with-sidebar-container">
         {token && (
           <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+            {/* Sidebar toggle button at the top */}
             <button className="toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
               ☰
             </button>
@@ -60,7 +64,6 @@ const SendNotification = () => {
               {/* Home Link */}
               <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
                 <span className="nav-icon">
-                  {/* Home icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20" height="20"
@@ -86,7 +89,6 @@ const SendNotification = () => {
                     className={`nav-item ${location.pathname === '/admin/event' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Calendar icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20" height="20"
@@ -110,7 +112,6 @@ const SendNotification = () => {
                     className={`nav-item ${location.pathname === '/admin/matching' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Users icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20" height="20"
@@ -134,7 +135,6 @@ const SendNotification = () => {
                     className={`nav-item ${location.pathname === '/admin/notifications' ? 'active' : ''}`}
                   >
                     <span className="nav-icon">
-                      {/* Paper plane icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20" height="20"
@@ -145,8 +145,8 @@ const SendNotification = () => {
                         strokeLinejoin="round"
                         viewBox="0 0 24 24"
                       >
-                        <line x1="22" y1="2" x2="11" y2="13"></line>
-                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        <line x1="22" y1="2" x2="11" y2="13" />
+                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
                       </svg>
                     </span>
                     <span className="nav-text">Send Notification</span>
@@ -154,6 +154,30 @@ const SendNotification = () => {
                 </div>
               )}
             </nav>
+            {/* Theme toggle placed below nav links */}
+            <div className="theme-toggle">
+              <button className="theme-btn" onClick={toggleTheme}>
+                {theme === "light" ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20" height="20"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 4.354a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75zM12 19.896a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-1.5 0v-.5a.75.75 0 0 1 .75-.75zM4.354 12a.75.75 0 0 1 .75-.75v-.5a.75.75 0 0 1-1.5 0v.5a.75.75 0 0 1 .75.75zM19.896 12a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75zM6.343 6.343a.75.75 0 0 1 1.061 0l.354.354a.75.75 0 0 1-1.06 1.061l-.354-.354a.75.75 0 0 1 0-1.061zM16.235 16.235a.75.75 0 0 1 1.06 0l.354.354a.75.75 0 1 1-1.06 1.061l-.354-.354a.75.75 0 0 1 0-1.061zM6.343 17.657a.75.75 0 0 1 0 1.06l-.354.354a.75.75 0 1 1-1.06-1.06l.354-.354a.75.75 0 0 1 1.06 0zM16.235 7.765a.75.75 0 0 1 0 1.061l-.354.354a.75.75 0 1 1-1.06-1.06l.354-.354a.75.75 0 0 1 1.06 0zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20" height="20"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z" />
+                  </svg>
+                )}
+              </button>
+            </div>
             <div className="sidebar-logout">
               <button className="logout-btn" onClick={handleLogout}>
                 <svg
@@ -176,13 +200,10 @@ const SendNotification = () => {
             </div>
           </div>
         )}
-
         <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
           <div className="page-header">
             <h1 className="page-title">Send Notification</h1>
           </div>
-
-          {/* White card container */}
           <div className="send-notification-container">
             <form onSubmit={handleSubmit} className="notification-form">
               <div className="form-group">

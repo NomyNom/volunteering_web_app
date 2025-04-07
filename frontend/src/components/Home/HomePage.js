@@ -1,15 +1,18 @@
-// File: HomePage.js
-import React, { useState } from 'react';
+// HomePage.js
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { ThemeContext } from '../../App';
 import './HomePage.css';
 
-const Home = () => {
+const HomePage = () => {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
-  const navigate = useNavigate();
   const location = useLocation();
-
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Get theme state and toggle function from context
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -26,13 +29,12 @@ const Home = () => {
           </button>
 
           <nav className="sidebar-links">
-            {/* Always display the Home link */}
+            {/* Home Link */}
             <Link
               to="/"
               className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
             >
               <span className="nav-icon">
-                {/* Home icon */}
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
                   width="20" 
@@ -51,7 +53,81 @@ const Home = () => {
               <span className="nav-text">Home</span>
             </Link>
 
-            {/* SHOW ONLY FOR ADMINS */}
+            {/* Volunteer Links */}
+            {user?.role === 'volunteer' && (
+              <div className="nav-group">
+                <span className="nav-group-title">Volunteer Pages</span>
+                <Link
+                  to="/profile"
+                  className={`nav-item ${location.pathname === '/profile' ? 'active' : ''}`}
+                >
+                  <span className="nav-icon">
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="20" 
+                      height="20" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M4 21v-2a4 4 0 0 1 3-3.87" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  </span>
+                  <span className="nav-text">Profile</span>
+                </Link>
+                <Link
+                  to="/notifications"
+                  className={`nav-item ${location.pathname === '/notifications' ? 'active' : ''}`}
+                >
+                  <span className="nav-icon">
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="20" 
+                      height="20" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                  </span>
+                  <span className="nav-text">Notifications</span>
+                </Link>
+                <Link
+                  to="/volunteer/history"
+                  className={`nav-item ${location.pathname === '/volunteer/history' ? 'active' : ''}`}
+                >
+                  <span className="nav-icon">
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="20" 
+                      height="20" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      viewBox="0 0 24 24"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  </span>
+                  <span className="nav-text">Volunteer History</span>
+                </Link>
+              </div>
+            )}
+
+            {/* Admin Links */}
             {user?.role === 'admin' && (
               <div className="nav-group">
                 <span className="nav-group-title">Admin Pages</span>
@@ -60,7 +136,6 @@ const Home = () => {
                   className={`nav-item ${location.pathname === '/admin/event' ? 'active' : ''}`}
                 >
                   <span className="nav-icon">
-                    {/* Calendar icon */}
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
                       width="20" 
@@ -85,7 +160,6 @@ const Home = () => {
                   className={`nav-item ${location.pathname === '/admin/matching' ? 'active' : ''}`}
                 >
                   <span className="nav-icon">
-                    {/* Users icon */}
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
                       width="20" 
@@ -110,7 +184,6 @@ const Home = () => {
                   className={`nav-item ${location.pathname === '/admin/notifications' ? 'active' : ''}`}
                 >
                   <span className="nav-icon">
-                    {/* Paper plane (send) icon */}
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
                       width="20" 
@@ -122,8 +195,8 @@ const Home = () => {
                       strokeLinejoin="round" 
                       viewBox="0 0 24 24"
                     >
-                      <line x1="22" y1="2" x2="11" y2="13"></line>
-                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                      <line x1="22" y1="2" x2="11" y2="13" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
                     </svg>
                   </span>
                   <span className="nav-text">Send Notification</span>
@@ -131,82 +204,20 @@ const Home = () => {
               </div>
             )}
 
-            {/* SHOW ONLY FOR VOLUNTEERS */}
-            {user?.role === 'volunteer' && (
-              <div className="nav-group">
-                <span className="nav-group-title">Volunteer Pages</span>
-                <Link
-                  to="/profile"
-                  className={`nav-item ${location.pathname === '/profile' ? 'active' : ''}`}
-                >
-                  <span className="nav-icon">
-                    {/* User icon */}
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      width="20" 
-                      height="20" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M20 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M4 21v-2a4 4 0 0 1 3-3.87" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
-                  </span>
-                  <span className="nav-text">Profile</span>
-                </Link>
-                <Link
-                  to="/notifications"
-                  className={`nav-item ${location.pathname === '/notifications' ? 'active' : ''}`}
-                >
-                  <span className="nav-icon">
-                    {/* Bell icon */}
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      width="20" 
-                      height="20" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-                      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                    </svg>
-                  </span>
-                  <span className="nav-text">Notifications</span>
-                </Link>
-                <Link
-                  to="/volunteer/history"
-                  className={`nav-item ${location.pathname === '/volunteer/history' ? 'active' : ''}`}
-                >
-                  <span className="nav-icon">
-                    {/* Clock icon */}
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      width="20" 
-                      height="20" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      viewBox="0 0 24 24"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                  </span>
-                  <span className="nav-text">Volunteer History</span>
-                </Link>
-              </div>
-            )}
+            {/* Theme toggle button on the sidebar */}
+            <div className="theme-toggle">
+              <button className="theme-btn" onClick={toggleTheme}>
+                {theme === 'light' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 4.354a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75zM12 19.896a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-1.5 0v-.5a.75.75 0 0 1 .75-.75zM4.354 12a.75.75 0 0 1 .75-.75v-.5a.75.75 0 0 1-1.5 0v.5a.75.75 0 0 1 .75.75zM19.896 12a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75zM6.343 6.343a.75.75 0 0 1 1.061 0l.354.354a.75.75 0 0 1-1.06 1.061l-.354-.354a.75.75 0 0 1 0-1.061zM16.235 16.235a.75.75 0 0 1 1.06 0l.354.354a.75.75 0 1 1-1.06 1.061l-.354-.354a.75.75 0 0 1 0-1.061zM6.343 17.657a.75.75 0 0 1 0 1.06l-.354.354a.75.75 0 1 1-1.06-1.06l.354-.354a.75.75 0 0 1 1.06 0zM16.235 7.765a.75.75 0 0 1 0 1.061l-.354.354a.75.75 0 1 1-1.06-1.06l.354-.354a.75.75 0 0 1 1.06 0zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/>
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/>
+                  </svg>
+                )}
+              </button>
+            </div>
           </nav>
 
           <div className="sidebar-logout">
@@ -269,4 +280,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

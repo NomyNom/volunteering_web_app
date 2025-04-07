@@ -1,31 +1,50 @@
 /* NotificationList.css */
 
-/* Full-page gradient background */
+/* Full-page container */
 .notification-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   margin: 0;
-  padding: 10px;
-  background: radial-gradient(circle at top left, #6d49f2, #f238a0);
+  padding: 20px;
+  background: var(--bg-color);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  color: var(--text-color);
 }
 
-/* White card container for notifications */
+.notification-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--bg-pattern);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: var(--bg-pattern-opacity);
+}
+
+/* Notification Card */
 .notification-card {
-  background: #fff;
+  background: var(--card-bg);
+  color: var(--text-color);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  width: 90%;
+  width: 95%;
   max-width: 800px;
+  margin: auto;
   animation: fadeIn 0.3s ease-in-out;
-  margin: auto; /* Center the card */
+  position: relative;
+  z-index: 1;
 }
 
-/* Fade-in animation */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -37,22 +56,35 @@
   }
 }
 
-/* Header row: Title + Mark All as Read button */
-.notification-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+  color: var(--text-color);
 }
 
-/* Title styling */
-.notification-title {
+.page-title {
+  font-size: 3rem;
   margin: 0;
-  font-size: 1.8rem;
-  color: #333;
+  font-weight: 700;
+  color: var(--text-color);
 }
 
-/* Mark All as Read button */
+.page-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-top: 5px;
+}
+
+/* Header Actions */
+.header-actions {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+/* Mark All as Read Button */
 .mark-all-read {
   background-color: #dd2476;
   color: #fff;
@@ -68,58 +100,51 @@
   background-color: #c21d65;
 }
 
-/* Table styling */
+/* Table Styling */
 .notification-table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  background-color: #fff;
+  background-color: var(--card-bg);
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* Table header gradient */
 .notification-table thead {
-  background: linear-gradient(90deg, #6d49f2, #f238a0);
+  background: #4a4a4a;
   color: #fff;
 }
 
-/* Center the header text */
 .notification-table th {
   padding: 16px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-size: 0.9rem;
-  text-align: center;
+  text-align: left;
 }
 
-/* Table cells */
 .notification-table td {
   padding: 16px;
   border-bottom: 1px solid #eee;
   vertical-align: middle;
-  color: #333;
-  text-align: center;
 }
 
-/* Hover effect */
 .notification-table tbody tr:hover {
-  background-color: #f8e6ff;
+  background-color: #f8f8f8;
 }
 
-/* Active sidebar link style */
+/* Sidebar Active Link */
 .nav-item.active {
-  background: #4a4a4a;
+  background: #696868;
+  color: #fff;
   cursor: default;
 }
 
-/* Hide active highlight when sidebar is collapsed */
 .sidebar:not(.open) .nav-item.active {
   background: none;
 }
 
-/* NEW: Center the main content container */
+/* Center Main Content */
 .main-content {
   display: flex;
   justify-content: center;

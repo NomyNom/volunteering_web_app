@@ -1,30 +1,29 @@
-/* Full-page container with a gradient background */
+/* VolunteerMatching.css */
+
+/* Full-page container with theme background */
 .volunteer-matching-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: var(--bg-color); /* Uses theme variable */
   padding: 2rem;
-  /* Removed display: flex; align-items: center; justify-content: center; */
 }
 
 /* Container for the sidebar + main content */
 .with-sidebar-container {
-  display: flex; /* Keep sidebar on the left, content on the right */
+  display: flex;
 }
 
 /* White card container for volunteer matching content */
 .volunteer-matching-container {
-  background: #fff;
+  background: var(--card-bg); /* Uses theme variable */
+  color: var(--text-color);
   padding: 2.5rem;
   max-width: 800px;
   width: 100%;
-  margin: 2rem auto; /* Centers horizontally and adds spacing from top */
+  margin: 2rem auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333; /* Text color */
 }
-
-/* (Optional) If you had a page-header at the top, no special styling needed here */
 
 /* Table styling */
 .volunteer-matching-table {
@@ -41,15 +40,15 @@
 }
 
 .volunteer-matching-table th {
-  background-color: #2575fc;
-  color: #fff;
+  background-color: var(--header-border); /* Uses theme header color */
+  color: var(--text-color);
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   font-size: 1rem;
 }
 
 .volunteer-matching-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
 }
 
 .volunteer-matching-table tr:hover {
@@ -74,7 +73,7 @@
 
 /* Active link highlight */
 .nav-item.active {
-  background: #4a4a4a; /* Gray highlight */
+  background: var(--header-border);
   cursor: default;
 }
 
