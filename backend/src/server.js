@@ -1,50 +1,43 @@
-// backend/server.js
-const dotenv = require('dotenv');
-dotenv.config();
+// backend/src/server.js
 const express = require('express');
+const cors    = require('cors');
 const mongoose = require('mongoose');
-const cors = require('cors');
+const dotenv   = require('dotenv');
 
-const authRoutes = require('./components/Routes/Auth');
-const profileRoutes = require('./components/Routes/Profile');
-const eventRoutes = require('./components/Routes/Event');
-const notificationsRoutes = require('./components/Routes/Notifications')
-const volunteerHistoryRoutes = require('./components/Routes/VolunteerHistory')
-const volunteerMatchingRoutes = require('./components/Routes/VolunteerMatching')
-
+dotenv.config();
 const app = express();
-const PORT = process.env.PORT;
 
-// Middleware:
-// a concept where functions can be used to process incoming requests before they reach 
-// their final destination and handle outgoing responses before they are sent back to the client
-app.use(express.json());
+// --- Middleware
 app.use(cors());
+app.use(express.json());
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  // .then(() => console.log('MongoDB connected'))
-  .then ( () => {
-    app.listen(PORT, () => {
-      console.log('Connected to MongoDB & Server running on port', PORT, '!')
-    })
-  })
-  .catch(err => console.error('MongoDB connection error:', err));
+// --- MongoDB Connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error('MongoDB connection error:', err));
 
-// Mount routes
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', profileRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/notifications', notificationsRoutes);
-app.use('/api/volunteer/history', volunteerHistoryRoutes);
-app.use('/api/volunteer/matching', volunteerMatchingRoutes);
+// --- Route Imports
+const authRoute             = require('./components/Routes/Auth');
+const volunteerHistoryRoute = require('./components/Routes/VolunteerHistory');
+const volunteerMatchingRoute= require('./components/Routes/VolunteerMatching');
+const eventRoute            = require('./components/Routes/Event');
+const reportsRoute          = require('./components/Routes/Reports');
 
-// Route
-// app.get('/', (req, res) => {
-//   res.json({mssg: 'Welcome to the app'})
-// })
+// --- Mount Routes
+app.use('/api/auth',                 authRoute);
+app.use('/api/volunteer/history',    volunteerHistoryRoute);
+app.use('/api/volunteer/matching',   volunteerMatchingRoute);
+app.use('/api/events',               eventRoute);
+app.use('/api/reports',              reportsRoute);
 
-// app.listen(PORT, () => {
-//   console.log('Server running on port', PORT)
-// })
+// --- Health check
+app.get('/', (req, res) => res.send('Server is running!!'));
+
+// --- Start Server
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
