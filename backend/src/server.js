@@ -25,6 +25,9 @@ const volunteerHistoryRoute = require('./components/Routes/VolunteerHistory');
 const volunteerMatchingRoute= require('./components/Routes/VolunteerMatching');
 const eventRoute            = require('./components/Routes/Event');
 const reportsRoute          = require('./components/Routes/Reports');
+const notificationsRoutes = require('./components/Routes/Notifications')
+const profileRoutes = require('./components/Routes/Profile');
+
 
 // --- Mount Routes
 app.use('/api/auth',                 authRoute);
@@ -32,8 +35,10 @@ app.use('/api/volunteer/history',    volunteerHistoryRoute);
 app.use('/api/volunteer/matching',   volunteerMatchingRoute);
 app.use('/api/events',               eventRoute);
 app.use('/api/reports',              reportsRoute);
+app.use('/api/notifications', notificationsRoutes);
+app.use('/api/profile', profileRoutes);
 
-// --- Health check
+
 app.get('/', (req, res) => res.send('Server is running!!'));
 
 // --- Start Server
