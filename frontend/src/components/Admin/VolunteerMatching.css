@@ -1,52 +1,28 @@
-/* Overall page background container */
+/* VolunteerMatching.css */
+
+/* Full-page container with theme background */
 .volunteer-matching-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Change the color/gradient as desired */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--bg-color); /* Uses theme variable */
   padding: 2rem;
 }
 
-/* Card container for volunteer matching content */
+/* Container for the sidebar + main content */
+.with-sidebar-container {
+  display: flex;
+}
+
+/* White card container for volunteer matching content */
 .volunteer-matching-container {
-  background: #fff;
+  background: var(--card-bg); /* Uses theme variable */
+  color: var(--text-color);
   padding: 2.5rem;
   max-width: 800px;
   width: 100%;
+  margin: 2rem auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333; /* Text color for content */
-}
-
-/* Container for the back button */
-.back-button-container {
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
-/* Back button styling */
-.back-button {
-  text-decoration: none;
-  color: #2575fc;
-  font-weight: bold;
-  border: 1px solid #2575fc;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.back-button:hover {
-  background-color: #2575fc;
-  color: #fff;
-}
-
-/* Heading styling */
-.volunteer-matching-container h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
 }
 
 /* Table styling */
@@ -64,15 +40,15 @@
 }
 
 .volunteer-matching-table th {
-  background-color: #2575fc;
-  color: #fff;
+  background-color: var(--header-border); /* Uses theme header color */
+  color: var(--text-color);
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   font-size: 1rem;
 }
 
 .volunteer-matching-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
 }
 
 .volunteer-matching-table tr:hover {
@@ -86,11 +62,22 @@
   }
   .volunteer-matching-container {
     padding: 1.5rem;
-    margin: 1rem;
+    margin: 1rem auto;
   }
   .volunteer-matching-table th,
   .volunteer-matching-table td {
     padding: 0.75rem;
     font-size: 0.9rem;
   }
+}
+
+/* Active link highlight */
+.nav-item.active {
+  background: var(--header-border);
+  cursor: default;
+}
+
+/* Hide highlight when sidebar is collapsed */
+.sidebar:not(.open) .nav-item.active {
+  background: none;
 }

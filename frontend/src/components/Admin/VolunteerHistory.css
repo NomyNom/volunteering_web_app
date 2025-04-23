@@ -1,13 +1,14 @@
-/* Example Google Font (optional): */
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'); */
+/* VolunteerHistory.css */
 
+/* Basic resets */
 body, html {
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
-  color: #333;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
+/* Volunteer History Container */
 .history-container {
   position: relative;
   display: flex;
@@ -15,44 +16,99 @@ body, html {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 10px;
-  background: radial-gradient(circle at top left, #6d49f2, #f238a0);
+  padding: 20px;
+  background: var(--bg-color);
+  overflow: hidden;
 }
 
-/* ----------------------------- */
-/* New Top Header for the Page   */
-/* ----------------------------- */
+/* Background pattern using theme variable */
+.history-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--bg-pattern);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: var(--bg-pattern-opacity);
+}
+
+/* Page Header */
 .page-header {
-  margin-top: -20px;
-  margin-bottom: 40px;
+  margin-top: 0;
+  margin-bottom: 30px;
   text-align: center;
-  color: #fff;
+  color: var(--text-color);
+  padding-bottom: 10px;
+}
+
+body.light .page-header {
+  border-bottom: 2px solid #000 !important;
+}
+
+body.dark .page-header {
+  border-bottom: 2px solid #fff !important;
 }
 
 .page-title {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-color);
 }
 
 .page-subtitle {
   font-size: 1.2rem;
-  color: #fff;
+  color: var(--text-color);
 }
 
-/* ----------------------------- */
-/* White Card (History Section)  */
-/* ----------------------------- */
+/* Summary Section */
+.summary-section {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+body.light .summary-section {
+  background: #d0d0d0;  /* Light mode summary background */
+}
+
+body.dark .summary-section {
+  background: rgb(58, 58, 58);     /* Dark mode summary background */
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.summary-item span {
+  font-weight: 600;
+}
+
+/* History Card */
 .history-card {
-  background: #fff;
+  background: var(--card-bg);
+  color: var(--text-color);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   width: 95%;
+  max-width: 800px;
+  margin: auto;
   animation: fadeIn 0.3s ease-in-out;
-  /* Positioning for back button if needed */
   position: relative;
+  z-index: 1;
 }
 
 @keyframes fadeIn {
@@ -66,53 +122,21 @@ body, html {
   }
 }
 
-.back-button-container {
-  position: fixed;    /* or absolute if you prefer scrolling away */
-  top: 20px;
-  left: 20px;
-  z-index: 9999;      /* ensures it's above other elements */
-}
-
-
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  border: 2px solid #ff4444;
-  border-radius: 6px;
-  background-color: #ff4444;
-  color: #fff;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.back-button:hover {
-  background-color: #cc0000;
-  border-color: #cc0000;
-  color: #fff;
-}
-
+/* Table Layout */
 .history-table-container {
   overflow-x: auto;
 }
 
-/* ----------------------------- */
-/* Table Layout                  */
-/* ----------------------------- */
 .history-table {
   width: 100%;
-  /* Use standard table layout so headers line up correctly */
   border-collapse: collapse;
-  background-color: #fff;
+  background-color: var(--card-bg);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .history-table thead {
-  background: linear-gradient(90deg, #6d49f2, #f238a0);
+  background: #4a4a4a;
   color: #fff;
 }
 
@@ -121,7 +145,7 @@ body, html {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  text-align: left; /* Ensure headers are left-aligned */
+  text-align: left;
 }
 
 .history-table td {
@@ -130,13 +154,14 @@ body, html {
   vertical-align: middle;
 }
 
+.history-table tbody tr {
+  transition: background-color 0.2s ease-in-out;
+}
 .history-table tbody tr:hover {
-  background-color: #f8e6ff;
+  background-color: #f8f8f8;
 }
 
-/* ----------------------------- */
-/* Status Badges                 */
-/* ----------------------------- */
+/* Status Badges */
 .status-badge {
   display: inline-block;
   padding: 6px 12px;
@@ -147,18 +172,18 @@ body, html {
 }
 
 .status-badge.completed {
-  background-color: #e6f4ea;
-  color: #137333;
-}
-
-.status-badge.registered {
-  background-color: #e8f0fe;
-  color: #1967d2;
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .status-badge.cancelled {
-  background-color: #ffe8e8;
-  color: #d93025;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-badge.scheduled {
+  background-color: #d1ecf1;
+  color: #0c5460;
 }
 
 .status-badge.waitlist {
@@ -166,12 +191,20 @@ body, html {
   color: #ff8c00;
 }
 
-/* New color styling for "Scheduled" status */
 .status-badge.scheduled {
-  background-color: #fffae6; /* Light yellow */
-  color: #b58900;           /* Darker golden/brown text */
+  background-color: #fffae6;
+  color: #b58900;
 }
 
+/* Event Icon */
+.event-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Error Message */
 .error-message {
   color: #dc3545;
   margin-bottom: 1rem;
@@ -180,16 +213,16 @@ body, html {
   border-radius: 4px;
 }
 
-/* ----------------------------- */
-/* Responsive Adjustments        */
-/* ----------------------------- */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .history-card {
     padding: 1.5rem;
   }
-
   .history-table th,
   .history-table td {
     padding: 10px;
+  }
+  .page-title {
+    font-size: 2.5rem;
   }
 }

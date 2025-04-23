@@ -30,7 +30,34 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Optional: DELETE /api/volunteer/matching/:id - Delete a volunteer matching record
+// PUT /api/volunteer/matching/:id - Update a volunteer matching record
+router.put('/:id', async (req, res) => {
+  const { volunteerName, matchedEvent } = req.body;
+
+  // Validate required fields
+  if (!volunteerName || !matchedEvent) {
+    return res.status(400).json({ error: 'Both volunteerName and matchedEvent are required.' });
+  }
+
+  try {
+    const updatedMatch = await VolunteerMatching.findByIdAndUpdate(
+      req.params.id,
+      { volunteerName, matchedEvent },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedMatch) {
+      return res.status(404).json({ error: 'Volunteer match record not found' });
+    }
+
+    res.json({ msg: 'Volunteer match record updated', match: updatedMatch });
+  } catch (err) {
+    console.error('Error updating volunteer matching record:', err);
+    res.status(500).json({ error: 'Server error while updating volunteer matching record' });
+  }
+});
+
+// DELETE /api/volunteer/matching/:id - Delete a volunteer matching record
 router.delete('/:id', async (req, res) => {
   try {
     const deletedMatch = await VolunteerMatching.findByIdAndDelete(req.params.id);
@@ -45,3 +72,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

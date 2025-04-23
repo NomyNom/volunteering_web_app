@@ -1,8 +1,6 @@
-// frontend/src/App.jsx
-
-// frontend/src/App.jsx
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+// App.jsx
+import React, { useState, createContext, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import HomePage from './components/Home/HomePage';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
@@ -11,11 +9,29 @@ import EventForm from './components/Admin/EventForm';
 import VolunteerMatching from './components/Admin/VolunteerMatching';
 import VolunteerHistory from './components/Admin/VolunteerHistory';
 import NotificationList from './components/Notifications/NotificationList';
+import SendNotification from './components/Admin/SendNotification';
 import ProtectedRoute from './components/ProtectedRoute';
 
-function App() {
+export const ThemeContext = createContext();
+
+function AppContent() {
+  const [theme, setTheme] = useState('light');
+  const location = useLocation();
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  // Run this effect whenever the theme or location changes.
+  // This way, if the user logs out (changing the location and removing the token),
+  // the body’s class will be reset.
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    document.body.className = token ? theme : "";
+  }, [theme, location]);
+
   return (
-    <Router>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
@@ -48,7 +64,7 @@ function App() {
           } 
         />
         <Route 
-          path="/admin/history" 
+          path="/volunteer/history" 
           element={
             <ProtectedRoute>
               <VolunteerHistory />
@@ -63,15 +79,35 @@ function App() {
             </ProtectedRoute>
           } 
         />
-
-        {/* Fallback route */}
+        <Route 
+          path="/admin/notifications" 
+          element={
+            <ProtectedRoute>
+              <SendNotification />
+            </ProtectedRoute>
+          } 
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+    </ThemeContext.Provider>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
 
 export default App;
+
+
+
+
+
+
 
 
 // import React from 'react';

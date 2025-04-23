@@ -1,3 +1,4 @@
+/* index.css */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +6,37 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Light theme variables */
+.light {
+  --bg-color: linear-gradient(135deg, #e8e6e6, #e3e2e2);
+  --text-color: #000;
+  --sidebar-bg: #fff;
+  --sidebar-bg-open: rgb(231, 231, 231);
+  --sidebar-hover: #dbdada;
+  --bg-pattern: url("https://media.istockphoto.com/id/1497765945/photo/the-gray-and-silver-are-light-black-with-white-the-gradient-is-the-surface-with-templates.jpg?s=612x612&w=0&k=20&c=Uum3e_yC-Yz8g7MCydJ8vaqEQvNwRGHnU2G5PWWRuzw=");
+  --card-bg: #fff;
+  --bg-pattern-opacity: 0.2;
 }
+
+/* Dark theme variables */
+.dark {
+  --bg-color: linear-gradient(135deg, #181717, #121212);
+  --text-color: #fff;
+  --sidebar-bg: rgb(48, 47, 47);
+  --sidebar-bg-open: rgb(49, 48, 48);
+  --sidebar-hover: #555;
+  /* Replace this with your preferred dark pattern URL */
+  --bg-pattern: url("https://media.istockphoto.com/id/1332097112/photo/the-black-and-silver-are-light-gray-with-white-the-gradient-is-the-surface-with-templates.jpg?s=612x612&w=0&k=20&c=3U9qpvN2znHbuJdkXiKHRLocNX01ng0AEtmmSyXlXec=");
+  --card-bg: #292828;
+  --bg-pattern-opacity: 0.2;
+
+}
+
+.theme-btn svg {
+  width: 24px;
+  height: 24px;
+}
+

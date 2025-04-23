@@ -39,11 +39,16 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET /api/volunteer/history - Retrieve all volunteer history records
+// GET /api/volunteer/history - Retrieve volunteer history records (optionally filtered by volunteer)
 router.get('/', async (req, res) => {
   try {
-    // Use populate to get the full EventDetails document
-    const records = await VolunteerHistory.find().populate('event');
+    const { volunteer } = req.query;
+    let query = {};
+    if (volunteer) {
+      query.volunteer = volunteer;
+    }
+    // No need to populate if both volunteer & event are stored as strings
+    const records = await VolunteerHistory.find(query);
     res.json({ records });
   } catch (err) {
     console.error('Error retrieving volunteer history records:', err);
