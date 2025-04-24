@@ -30,6 +30,10 @@
     border-radius: 4px;
     cursor: pointer;
   }
+
+  .report-actions button {
+    margin-top: 20px;       /* <— pushes the button downward */
+  }
   
   .report-preview {
     background: #fff;
