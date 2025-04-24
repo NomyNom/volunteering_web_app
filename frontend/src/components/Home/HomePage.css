@@ -239,7 +239,8 @@
 
 .access-message {
   font-size: 1.2rem;
-  margin-top: 2rem;
+  margin-top: 0rem; /* Was 2rem previously */
+  margin-bottom: 2rem; /* Was way too close */
 }
 
 /* Hide page scrollbars globally if desired */
