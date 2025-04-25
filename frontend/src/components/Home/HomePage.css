@@ -238,7 +238,8 @@
 }
 
 .access-message {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 600; /* bold */
   margin-top: 2rem;
 }
 
@@ -257,4 +258,14 @@ html, body {
 
 .sidebar:not(.open) .nav-item.active {
   background: none;
+}
+
+.about-text {
+  padding-top: 1.5rem;
+  max-width: 600px;
+  line-height: 1.5;
+  margin: 1rem 0; /* some vertical spacing */
+  font-size: 1rem;        
+  color: var(--text-color);
+  text-align: center;
 }

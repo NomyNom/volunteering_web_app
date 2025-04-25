@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ThemeContext } from '../../App';
 import './HomePage.css';
+import logo from './volungo_logo.png';
 
 const HomePage = () => {
   const token = localStorage.getItem('token');
@@ -303,7 +304,28 @@ const HomePage = () => {
         </header>
 
         <main className="home-main">
-          {token ? (
+          {!token && (
+            <>
+              <img
+                src={logo}
+                alt="Volungo Logo"
+                style={{ height: '400px' }}
+              />
+
+              <p className="about-text">
+                VolunGo connects passionate volunteers with community
+                projects that need their skills. Whether you’re organizing events
+                or signing up to help, our platform makes it simple to get involved
+                and make a real impact.
+              </p>
+      
+              <p className="access-message">
+                Please login or register to access the features.
+              </p>
+            </>
+          )}
+
+          {token && (
             user?.role === 'admin' ? (
               <h1 className="welcome-message">
                 Admin Dashboard for {user?.email || 'Admin'}
@@ -317,10 +339,6 @@ const HomePage = () => {
                 Welcome back, {user?.email || 'User'}!
               </h1>
             )
-          ) : (
-            <p className="access-message">
-              Please login or register to access the features.
-            </p>
           )}
         </main>
       </div>
