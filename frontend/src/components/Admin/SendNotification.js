@@ -52,7 +52,9 @@ const SendNotification = () => {
   };
 
   return (
-    <div className="send-notification-page">
+    <div className="send-notification-page"
+    data-theme={theme}
+    >
       <div className="with-sidebar-container">
         {token && (
           <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>

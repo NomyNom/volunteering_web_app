@@ -46,7 +46,7 @@ const VolunteerMatching = () => {
   };
 
   return (
-    <div className="volunteer-matching-page">
+    <div className="volunteer-matching-page" data-theme={theme}>
       <div className="with-sidebar-container">
         {token && (
           <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>

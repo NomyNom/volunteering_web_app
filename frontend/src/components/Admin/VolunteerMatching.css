@@ -1,5 +1,32 @@
 /* VolunteerMatching.css */
 
+/* THEME VARIABLES*/
+/* Define light and dark theme colors here */
+:root {
+  /* light theme */
+  --bg-color:           #f5f5f5;
+  --card-bg:            #ffffff;
+  --text-color:         #333333;
+  --header-border:      #e0e0e0;
+
+  /* table and hover */
+  --table-border:       #dddddd;
+  --hover-bg:           #f0f8ff;   /* your existing light-mode hover */
+}
+
+[data-theme="dark"] {
+  /* dark theme */
+  --bg-color:           #121212;
+  --card-bg:            #1e1e1e;
+  --text-color:         #eeeeee;
+  --header-border:      #333333;
+
+  /* table and hover in dark mode */
+  --table-border:       #555555;
+  --hover-bg:           #2a2a2a;   /* darker hover for contrast */
+}
+/* ————————————————————————————————————————————— */
+
 /* Full-page container with theme background */
 .volunteer-matching-page {
   min-height: 100vh;
@@ -34,7 +61,7 @@
 
 .volunteer-matching-table th,
 .volunteer-matching-table td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--table-border);
   padding: 1rem;
   text-align: left;
 }
@@ -52,7 +79,7 @@
 }
 
 .volunteer-matching-table tr:hover {
-  background-color: #f0f8ff;
+  background-color: var(--hover-bg);
 }
 
 /* Responsive adjustments */

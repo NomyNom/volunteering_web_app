@@ -82,7 +82,10 @@ function EventForm() {
   };
 
   return (
-    <div className="event-form-container">
+    <div 
+      className="event-form-container"
+      data-theme={theme} 
+      >
       <div className="with-sidebar-container">
         {token && (
           <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
