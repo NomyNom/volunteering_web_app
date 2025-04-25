@@ -1,0 +1,45 @@
+/* /frontend/src/components/Admin/Reports.css */
+
+.report-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color, #f9f9f9);
+    color: var(--text-color, #333);
+  }
+  
+  .report-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .report-header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .report-actions {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .report-actions select,
+  .report-actions button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .report-actions button {
+    margin-top: 20px;       /* <— pushes the button downward */
+  }
+  
+  .report-preview {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    overflow-x: auto;
+    max-height: 500px;
+  }
+  
