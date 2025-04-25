@@ -12,6 +12,10 @@
   /* table and hover */
   --table-border:       #dddddd;
   --hover-bg:           #f0f8ff;   /* your existing light-mode hover */
+
+  /* background pattern (light) */
+  --bg-pattern:         url("https://media.istockphoto.com/id/1497765945/photo/the-gray-and-silver-are-light-black-with-white-the-gradient-is-the-surface-with-templates.jpg?s=612x612&w=0&k=20&c=Uum3e_yC-Yz8g7MCydJ8vaqEQvNwRGHnU2G5PWWRuzw=");
+  --bg-pattern-opacity: 0.05;
 }
 
 [data-theme="dark"] {
@@ -24,14 +28,34 @@
   /* table and hover in dark mode */
   --table-border:       #555555;
   --hover-bg:           #2a2a2a;   /* darker hover for contrast */
+
+  /* background pattern (dark) */
+  --bg-pattern:         url("https://media.istockphoto.com/id/1332097112/photo/the-black-and-silver-are-light-gray-with-white-the-gradient-is-the-surface-with-templates.jpg?s=612x612&w=0&k=20&c=3U9qpvN2znHbuJdkXiKHRLocNX01ng0AEtmmSyXlXec=");
+  --bg-pattern-opacity: 0.1;
 }
 /* ————————————————————————————————————————————— */
 
 /* Full-page container with theme background */
 .volunteer-matching-page {
+  position: relative;           /* for pattern overlay */
   min-height: 100vh;
-  background: var(--bg-color); /* Uses theme variable */
+  background: var(--bg-color);  /* Uses theme variable */
   padding: 2rem;
+  z-index: 1;                   /* content above the pattern */
+}
+
+/* render the background pattern behind .volunteer-matching-page */
+.volunteer-matching-page::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: var(--bg-pattern);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: var(--bg-pattern-opacity);
+  z-index: 0;                   /* pattern below content */
 }
 
 /* Container for the sidebar + main content */

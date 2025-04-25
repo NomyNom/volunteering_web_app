@@ -4,40 +4,64 @@
 /* Define light and dark theme colors here */
 :root {
   /* light theme */
-  --bg-color:          #f5f5f5;
-  --card-bg:           #ffffff;
-  --text-color:        #333333;
-  --header-border:     #e0e0e0;
+  --bg-color:           #f5f5f5;
+  --card-bg:            #ffffff;
+  --text-color:         #333333;
+  --header-border:      #e0e0e0;
 
   /* form controls in light mode */
-  --input-bg:          #ffffff;
-  --input-border:      #cccccc;
-  --input-text-color:  #333333;
+  --input-bg:           #ffffff;
+  --input-border:       #cccccc;
+  --input-text-color:   #333333;
+
+  /* background pattern (light) */
+  --bg-pattern: url("https://media.istockphoto.com/id/1497765945/photo/the-gray-and-silver-are-light-black-with-white-the-gradient-is-the-surface-with-templates.jpg?s=612x612&w=0&k=20&c=Uum3e_yC-Yz8g7MCydJ8vaqEQvNwRGHnU2G5PWWRuzw=");
+  --bg-pattern-opacity: 0.05;
 }
 
 [data-theme="dark"] {
   /* dark theme */
-  --bg-color:          #121212;
-  --card-bg:           #1e1e1e;
-  --text-color:        #e0e0e0;
-  --header-border:     #333333;
+  --bg-color:           #121212;
+  --card-bg:            #1e1e1e;
+  --text-color:         #e0e0e0;
+  --header-border:      #333333;
 
   /* form controls in dark mode */
-  --input-bg:          #2e2e2e;
-  --input-border:      #555555;
-  --input-text-color:  #dddddd;
+  --input-bg:           #2e2e2e;
+  --input-border:       #555555;
+  --input-text-color:   #dddddd;
+
+  /* background pattern (dark) */
+  --bg-pattern: url("https://media.istockphoto.com/id/1332097112/photo/the-black-and-silver-are-light-gray-with-white-the-gradient-is-the-surface-with-templates.jpg?s=612x612&w=0&k=20&c=3U9qpvN2znHbuJdkXiKHRLocNX01ng0AEtmmSyXlXec=");
+  --bg-pattern-opacity: 0.1;
 }
 /* ————————————————————————————————————————————— */
 
 /* Full-page container using theme background */
 .send-notification-page {
+  position: relative;           /* for pattern overlay */
   min-height: 100vh;
-  background: var(--bg-color); /* Uses theme variable */
+  background: var(--bg-color);  /* Uses theme variable */
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  z-index: 1;                    /* keep content above the pattern */
+}
+
+/* render the background pattern behind .send-notification-page */
+.send-notification-page::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: var(--bg-pattern);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: var(--bg-pattern-opacity);
+  z-index: 0;                    /* pattern sits below content */
 }
 
 /* Container for the white card + sidebar */
