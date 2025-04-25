@@ -1,38 +1,33 @@
 // EventForm.js
-import React, { useState, useContext } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { ThemeContext } from "../../App"; // Import ThemeContext
-import "./EventForm.css";
+import React, { useState, useContext } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { ThemeContext } from '../../App';
+import './EventForm.css';
 
 function EventForm() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { theme, toggleTheme } = useContext(ThemeContext); // Access theme & toggle
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const [formData, setFormData] = useState({
-    eventName: "",
-    eventDescription: "",
-    location: "",
+    eventName: '',
+    eventDescription: '',
+    location: '',
     requiredSkills: [],
-    urgency: "",
-    eventDate: "",
+    urgency: '',
+    eventDate: '',
   });
-
-  const [rawSkills, setRawSkills] = useState("");
-  const urgencyLevels = ["Low", "Medium", "High"];
+  const [rawSkills, setRawSkills] = useState('');
+  const urgencyLevels = ['Low', 'Medium', 'High'];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSkillsChange = (e) => {
-    setRawSkills(e.target.value);
-  };
+  const handleSkillsChange = (e) => setRawSkills(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,42 +38,39 @@ function EventForm() {
       !formData.urgency ||
       !formData.eventDate
     ) {
-      alert("Please fill in all required fields.");
+      alert('Please fill in all required fields.');
       return;
     }
 
     const skillsArray = rawSkills
-      .split(",")
-      .map((skill) => skill.trim())
-      .filter((skill) => skill !== "");
-
+      .split(',')
+      .map((s) => s.trim())
+      .filter((s) => s);
     const eventData = { ...formData, requiredSkills: skillsArray };
 
     try {
-      const response = await fetch("http://localhost:4000/api/events", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('http://localhost:4000/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(eventData),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        alert(`Error: ${errorData.error || "Failed to create event"}`);
+      if (!res.ok) {
+        const err = await res.json();
+        alert(`Error: ${err.error || 'Failed to create event'}`);
         return;
       }
-
-      alert("Event created successfully!");
-      navigate("/");
-    } catch (error) {
-      console.error("Error creating event:", error);
-      alert("Error creating event, please try again later.");
+      alert('Event created successfully!');
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+      alert('Error creating event, please try again later.');
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
   };
 
   return (
@@ -88,19 +80,21 @@ function EventForm() {
       >
       <div className="with-sidebar-container">
         {token && (
-          <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-            {/* Sidebar toggle button at the top */}
-            <button className="toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+            <button
+              className="toggle-btn"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+            >
               ☰
             </button>
 
-            {/* Sidebar nav links */}
             <nav className="sidebar-links">
               <Link
                 to="/"
-                className={`nav-item ${location.pathname === "/" ? "active" : ""}`}
+                className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
               >
                 <span className="nav-icon">
+                  {/* home icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -119,18 +113,19 @@ function EventForm() {
                 <span className="nav-text">Home</span>
               </Link>
 
-              {/* Admin-only links */}
-              {user?.role === "admin" && (
+              {user?.role === 'admin' && (
                 <div className="nav-group">
                   <span className="nav-group-title">Admin Pages</span>
 
+                  {/* Event Management */}
                   <Link
                     to="/admin/event"
                     className={`nav-item ${
-                      location.pathname === "/admin/event" ? "active" : ""
+                      location.pathname === '/admin/event' ? 'active' : ''
                     }`}
                   >
                     <span className="nav-icon">
+                      {/* calendar icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -151,13 +146,15 @@ function EventForm() {
                     <span className="nav-text">Event Management</span>
                   </Link>
 
+                  {/* Volunteer Matching */}
                   <Link
                     to="/admin/matching"
                     className={`nav-item ${
-                      location.pathname === "/admin/matching" ? "active" : ""
+                      location.pathname === '/admin/matching' ? 'active' : ''
                     }`}
                   >
                     <span className="nav-icon">
+                      {/* users icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -178,13 +175,15 @@ function EventForm() {
                     <span className="nav-text">Volunteer Matching</span>
                   </Link>
 
+                  {/* Send Notification */}
                   <Link
                     to="/admin/notifications"
                     className={`nav-item ${
-                      location.pathname === "/admin/notifications" ? "active" : ""
+                      location.pathname === '/admin/notifications' ? 'active' : ''
                     }`}
                   >
                     <span className="nav-icon">
+                      {/* send icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -202,14 +201,40 @@ function EventForm() {
                     </span>
                     <span className="nav-text">Send Notification</span>
                   </Link>
+
+                  {/* Reports **(new)** */}
+                  <Link
+                    to="/admin/reports"
+                    className={`nav-item ${
+                      location.pathname === '/admin/reports' ? 'active' : ''
+                    }`}
+                  >
+                    <span className="nav-icon">
+                      {/* file icon */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+                        <polyline points="7 10 12 15 17 10" />
+                      </svg>
+                    </span>
+                    <span className="nav-text">Reports</span>
+                  </Link>
                 </div>
               )}
             </nav>
 
-            {/* Place the theme toggle BELOW the nav links */}
             <div className="theme-toggle">
               <button className="theme-btn" onClick={toggleTheme}>
-                {theme === "light" ? (
+                {theme === 'light' ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -233,20 +258,18 @@ function EventForm() {
               </button>
             </div>
 
-            {/* Logout section at the bottom */}
             <div className="sidebar-logout">
               <button className="logout-btn" onClick={handleLogout}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
-                  viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="logout-icon"
+                  viewBox="0 0 24 24"
                 >
                   <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                   <polyline points="16 17 21 12 16 7" />
@@ -258,10 +281,11 @@ function EventForm() {
           </div>
         )}
 
-        <div className={`main-content ${token ? "with-sidebar" : ""}`}>
+        <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
           <div className="event-form-card">
             <h2>Create Event</h2>
             <form onSubmit={handleSubmit}>
+              {/* form fields … */}
               <div className="form-group">
                 <label htmlFor="eventName">Event Name:</label>
                 <input
@@ -273,7 +297,6 @@ function EventForm() {
                   required
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="eventDescription">Event Description:</label>
                 <textarea
@@ -284,7 +307,6 @@ function EventForm() {
                   required
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="location">Location:</label>
                 <input
@@ -296,20 +318,18 @@ function EventForm() {
                   required
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="requiredSkills">Required Skills:</label>
                 <input
                   type="text"
                   id="requiredSkills"
                   name="requiredSkills"
-                  placeholder="e.g. Communication, Teamwork, Leadership"
+                  placeholder="e.g. Communication, Teamwork"
                   value={rawSkills}
                   onChange={handleSkillsChange}
                   required
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="urgency">Urgency:</label>
                 <select
@@ -320,14 +340,13 @@ function EventForm() {
                   required
                 >
                   <option value="">-- Select Urgency --</option>
-                  {urgencyLevels.map((level) => (
-                    <option key={level} value={level}>
-                      {level}
+                  {urgencyLevels.map((u) => (
+                    <option key={u} value={u}>
+                      {u}
                     </option>
                   ))}
                 </select>
               </div>
-
               <div className="form-group">
                 <label htmlFor="eventDate">Event Date:</label>
                 <input
@@ -339,7 +358,6 @@ function EventForm() {
                   required
                 />
               </div>
-
               <button type="submit" className="btn-primary">
                 Create Event
               </button>
@@ -352,3 +370,4 @@ function EventForm() {
 }
 
 export default EventForm;
+

@@ -1,7 +1,7 @@
 // VolunteerMatching.js
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ThemeContext } from '../../App'; // Import ThemeContext
+import { ThemeContext } from '../../App';
 import './VolunteerMatching.css';
 
 const VolunteerMatching = () => {
@@ -10,8 +10,7 @@ const VolunteerMatching = () => {
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const { theme, toggleTheme } = useContext(ThemeContext); // Use theme context
-
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -19,30 +18,25 @@ const VolunteerMatching = () => {
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/volunteer/matching', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch matching data');
-        }
-        return response.json();
+    fetch('http://localhost:4000/api/volunteer/matching')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch matching data');
+        return res.json();
       })
-      .then(data => {
-        setMatches(data.matches);
+      .then((d) => {
+        setMatches(d.matches);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
   };
 
   return (
@@ -53,16 +47,19 @@ const VolunteerMatching = () => {
             <button className="toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
               ☰
             </button>
+
             <nav className="sidebar-links">
-              {/* Home link */}
+              {/* Home */}
               <Link
                 to="/"
                 className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
               >
                 <span className="nav-icon">
+                  {/* home */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20" height="20"
+                    width="20"
+                    height="20"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -76,18 +73,24 @@ const VolunteerMatching = () => {
                 </span>
                 <span className="nav-text">Home</span>
               </Link>
-              {/* Admin Pages */}
+
               {user?.role === 'admin' && (
                 <div className="nav-group">
                   <span className="nav-group-title">Admin Pages</span>
+
+                  {/* Event Management */}
                   <Link
                     to="/admin/event"
-                    className={`nav-item ${location.pathname === '/admin/event' ? 'active' : ''}`}
+                    className={`nav-item ${
+                      location.pathname === '/admin/event' ? 'active' : ''
+                    }`}
                   >
                     <span className="nav-icon">
+                      {/* calendar */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="20" height="20"
+                        width="20"
+                        height="20"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -103,14 +106,20 @@ const VolunteerMatching = () => {
                     </span>
                     <span className="nav-text">Event Management</span>
                   </Link>
+
+                  {/* Volunteer Matching (current) */}
                   <Link
                     to="/admin/matching"
-                    className={`nav-item ${location.pathname === '/admin/matching' ? 'active' : ''}`}
+                    className={`nav-item ${
+                      location.pathname === '/admin/matching' ? 'active' : ''
+                    }`}
                   >
                     <span className="nav-icon">
+                      {/* users */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="20" height="20"
+                        width="20"
+                        height="20"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -126,14 +135,20 @@ const VolunteerMatching = () => {
                     </span>
                     <span className="nav-text">Volunteer Matching</span>
                   </Link>
+
+                  {/* Send Notification */}
                   <Link
                     to="/admin/notifications"
-                    className={`nav-item ${location.pathname === '/admin/notifications' ? 'active' : ''}`}
+                    className={`nav-item ${
+                      location.pathname === '/admin/notifications' ? 'active' : ''
+                    }`}
                   >
                     <span className="nav-icon">
+                      {/* send */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="20" height="20"
+                        width="20"
+                        height="20"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -147,16 +162,44 @@ const VolunteerMatching = () => {
                     </span>
                     <span className="nav-text">Send Notification</span>
                   </Link>
+
+                  {/* Reports **(new)** */}
+                  <Link
+                    to="/admin/reports"
+                    className={`nav-item ${
+                      location.pathname === '/admin/reports' ? 'active' : ''
+                    }`}
+                  >
+                    <span className="nav-icon">
+                      {/* file */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+                        <polyline points="7 10 12 15 17 10" />
+                      </svg>
+                    </span>
+                    <span className="nav-text">Reports</span>
+                  </Link>
                 </div>
               )}
             </nav>
-            {/* Theme toggle placed below nav links */}
+
             <div className="theme-toggle">
               <button className="theme-btn" onClick={toggleTheme}>
-                {theme === "light" ? (
+                {theme === 'light' ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20" height="20"
+                    width="20"
+                    height="20"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -165,7 +208,8 @@ const VolunteerMatching = () => {
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20" height="20"
+                    width="20"
+                    height="20"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -174,18 +218,19 @@ const VolunteerMatching = () => {
                 )}
               </button>
             </div>
+
             <div className="sidebar-logout">
               <button className="logout-btn" onClick={handleLogout}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20" height="20"
-                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="logout-icon"
+                  viewBox="0 0 24 24"
                 >
                   <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                   <polyline points="16 17 21 12 16 7" />
@@ -196,15 +241,14 @@ const VolunteerMatching = () => {
             </div>
           </div>
         )}
+
         <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
           <div className="page-header">
             <h1 className="page-title">Volunteer Matching</h1>
           </div>
           <div className="volunteer-matching-container">
             {error && (
-              <div style={{ color: 'red', marginBottom: '1rem' }}>
-                {error}
-              </div>
+              <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>
             )}
             {loading ? (
               <p>Loading matching data...</p>
@@ -219,10 +263,10 @@ const VolunteerMatching = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {matches.map((match) => (
-                    <tr key={match._id}>
-                      <td>{match.volunteerName}</td>
-                      <td>{match.matchedEvent}</td>
+                  {matches.map((m) => (
+                    <tr key={m._id}>
+                      <td>{m.volunteerName}</td>
+                      <td>{m.matchedEvent}</td>
                     </tr>
                   ))}
                 </tbody>
