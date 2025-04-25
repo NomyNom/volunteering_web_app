@@ -289,19 +289,7 @@ const HomePage = () => {
         </div>
       )}
 
-
       <div className={`main-content ${token ? 'with-sidebar' : ''}`}>
-        {/* -- Logo above login/register -- */}
-        {!token && (
-          <div style={{ textAlign: 'center', margin: 0, padding: 0}}>
-            <img
-              src={logo}
-              alt="Volungo Logo"
-              style={{ height: '400px', display: 'inline-block' }}
-            />
-          </div>
-        )}
-
         <header className="home-header">
           {!token && (
             <div className="auth-buttons">
@@ -316,7 +304,28 @@ const HomePage = () => {
         </header>
 
         <main className="home-main">
-          {token ? (
+          {!token && (
+            <>
+              <img
+                src={logo}
+                alt="Volungo Logo"
+                style={{ height: '400px' }}
+              />
+
+              <p className="about-text">
+                VolunGo connects passionate volunteers with community
+                projects that need their skills. Whether you’re organizing events
+                or signing up to help, our platform makes it simple to get involved
+                and make a real impact.
+              </p>
+      
+              <p className="access-message">
+                Please login or register to access the features.
+              </p>
+            </>
+          )}
+
+          {token && (
             user?.role === 'admin' ? (
               <h1 className="welcome-message">
                 Admin Dashboard for {user?.email || 'Admin'}
@@ -330,10 +339,6 @@ const HomePage = () => {
                 Welcome back, {user?.email || 'User'}!
               </h1>
             )
-          ) : (
-            <p className="access-message">
-              Please login or register to access the features.
-            </p>
           )}
         </main>
       </div>
