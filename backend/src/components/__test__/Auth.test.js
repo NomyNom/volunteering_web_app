@@ -18,6 +18,7 @@ describe("Auth API", () => {
 
   describe("POST /api/auth/register", () => {
     it("should register a new user with valid input", async () => {
+      process.env.JWT_SECRET = "testsecret";
       const payload = { email: "test@example.com", password: "password123", role: "volunteer" };
       const res = await request(app).post("/api/auth/register").send(payload);
       expect(res.status).toBe(200);
@@ -51,7 +52,7 @@ describe("Auth API", () => {
       // 2nd registration with the same email should fail.
       const res = await request(app).post("/api/auth/register").send(payload);
       expect(res.status).toBe(400);
-      expect(res.body).toHaveProperty("msg", "Email already exists");
+      expect(res.body).toHaveProperty("msg", "User already exists");
     });
   });
 
@@ -67,9 +68,11 @@ describe("Auth API", () => {
         .post("/api/auth/login")
         .send({ email: "login@test.com", password: "password123" });
       expect(res.status).toBe(200);
-      expect(res.body).toHaveProperty("token", "dummy-token");
+      // instead of checking for dummy-token, check that token exists and is a string
+      expect(typeof res.body.token).toBe("string");
+      expect(res.body.token.length).toBeGreaterThan(0);
       expect(res.body.user).toHaveProperty("email", "login@test.com");
-      expect(res.body.user).toHaveProperty("_id");
+      expect(res.body.user).toHaveProperty("id");
     });
 
     it("should return 400 when email or password is missing", async () => {

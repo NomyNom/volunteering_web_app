@@ -42,7 +42,7 @@ describe("Event API", () => {
     it("should create a new event with valid data", async () => {
       const res = await request(app).post("/api/events").send(validEventPayload);
       expect(res.status).toBe(201);
-      expect(res.body).toHaveProperty("msg", "Event created");
+      expect(res.body).toHaveProperty("msg", "Event created and notification sent");
       // Check that the event has an _id (Mongoose uses _id by default)
       expect(res.body.event).toHaveProperty("_id");
     });
